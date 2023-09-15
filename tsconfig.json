@@ -2,37 +2,38 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"useDefineForClassFields": true,
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
-		"allowJs": false,
-		"skipLibCheck": true,
-		"esModuleInterop": false,
-		"allowSyntheticDefaultImports": true,
-
-		/* Strict Type-Checking Options */
-		"strict": true /* Enable all strict type-checking options. */,
-		// "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
-		// "strictNullChecks": true,              /* Enable strict null checks. */
-		// "strictFunctionTypes": true,           /* Enable strict checking of function types. */
-		// "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
-		// "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
-		// "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
-		// "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
-
-		"forceConsistentCasingInFileNames": true,
+			"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"module": "ESNext",
+		"skipLibCheck": true,
+		"allowJs": false,
+			"esModuleInterop": false,
+			"allowSyntheticDefaultImports": true,
+	
+		/* Bundler mode */
 		"moduleResolution": "Node",
+		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "react-jsx",
+			"jsx": "react-jsx",
+	
+		/* Linting */
+		"strict": true,
 		// 解析非相对模块名的基准目录
 		"baseUrl": "./",
 		// 模块名到基于 baseUrl的路径映射的列表。
 		"paths": {
 			"@": ["src"],
-			"@/*": ["src/*"]
+			"@/*": ["src/*"],
+			"@img/*": ["./src/assets/image/*"],
+			"@com/*": ["./src/components/*"],
+			"@api/*": ["./src/apis/*"],
+			"@s/*": ["./src/styles/*"],
+			"@u/*": ["./src/utils/*"],
+			"@v/*": ["./src/views/*"],
+			"@types/*": ["./src/types/*"],
 		}
 	},
-	"include": ["**/*.ts", "**/*.d.ts", "**/*.tsx", "vite.config.ts"],
+	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "vite.config.ts","vitePlugins/**/*.ts"],
 	"exclude": ["node_modules", "dist", "**/*.js"]
 }
