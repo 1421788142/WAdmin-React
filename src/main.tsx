@@ -1,12 +1,12 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store, persistor } from "@/redux";
 import { PersistGate } from "redux-persist/integration/react";
+import 'virtual:svg-icons-register' //本地icon
 // 根文件
 import App from "@/App";
 // 挂载多语言
-import "@/language/index";
+import "@/plugins/language/index";
 // 挂载css
 import "@/styles/tailwind.less";
 import "@/styles/common.less";

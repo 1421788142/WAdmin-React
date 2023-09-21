@@ -10,7 +10,7 @@ const LoginLeft = ()=>{
                     <div className="flex items-center w-full">
                         <img className="max-w-[70px] mr-[1%]" src={getAssets(VITE_PROJECT_LOGO)} />
                         <span className="text-3xl font-black">
-                        { VITE_PROJECT_NAME }
+                            { VITE_PROJECT_NAME }
                         </span>
                     </div>
                     <div className='text-sm'>输入您的个人详细信息开始使用！</div>

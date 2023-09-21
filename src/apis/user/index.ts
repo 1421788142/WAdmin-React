@@ -1,4 +1,4 @@
-// import { Http } from "@/plugins/axios";
+import { Http } from "@/plugins/axios";
 import { tableResultData, queryTableInterface } from '@/apis/interface'
 
 export interface loginInterface {
@@ -27,11 +27,11 @@ export interface roleInterafce {
 }
 
 export const login = (data: loginInterface) => {
-    // return Http.post<userInterface>({ url: `login`, data })
+    return Http.post<userInterface>({ url: `login`, data })
 }
 
 export const getRouter = () => {
-    // return Http.get<tableResultData<menuListType>>({ url: `user/router` })
+    return Http.get<tableResultData<menuListType>>({ url: `user/router` })
 }
 
 export const getRole = (data: queryTableInterface) => {

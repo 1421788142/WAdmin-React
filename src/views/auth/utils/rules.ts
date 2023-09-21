@@ -29,10 +29,10 @@ export const loginRules: Record<string, Rule[]> = {
     code: [
         {
             validator: (rule: Rule, value: string, callback: Function) => {
-                const { appConfig } = store.getState()
+                const { userStore } = store.getState()
                 if (!value) {
                     callback(new Error('请输入验证码'));
-                } else if (appConfig.verifyCode !== value) {
+                } else if (userStore.verifyCode !== value) {
                     callback(new Error('请输入正确的验证码'));
                 } else {
                     return Promise.resolve();
@@ -62,10 +62,10 @@ export const phoneRules: Record<string, Rule[]> = {
     code: [
         {
             validator: (rule: Rule, value: string, callback: Function) => {
-                const { appConfig } = store.getState()
+                const { userStore } = store.getState()
                 if (!value) {
                     callback(new Error('请输入验证码'));
-                } else if (appConfig.verifyCode !== value) {
+                } else if (userStore.verifyCode !== value) {
                     callback(new Error('请输入正确的验证码'));
                 } else {
                     return Promise.resolve();
@@ -109,10 +109,10 @@ export const registerRules: Record<string, Rule[]> = {
     code: [
         {
             validator: (rule: Rule, value: string, callback: Function) => {
-                const { appConfig } = store.getState()
+                const { userStore } = store.getState()
                 if (!value) {
                     callback(new Error('请输入验证码'));
-                } else if (appConfig.verifyCode !== value) {
+                } else if (userStore.verifyCode !== value) {
                     callback(new Error('请输入正确的验证码'));
                 } else {
                     return Promise.resolve();

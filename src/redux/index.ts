@@ -4,11 +4,15 @@ import { applyMiddleware } from "redux";
 import storage from "redux-persist/lib/storage";
 import reduxThunk from "redux-thunk";
 import reduxPromise from "redux-promise";
-import appConfig from "./modules/appConfig/reducer";
+import configStore from "./modules/config/reducer";
+import userStore from "./modules/user/reducer";
+import { userStoreType, configStoreType } from '@/redux/interface/index'
+import * as types from './actionTypes'
 
 // 创建reducer(拆分reducer)
 const reducer = combineReducers({
-    appConfig
+    configStore,
+    userStore
 });
 
 // redux 持久化配置
@@ -18,14 +22,20 @@ const persistConfig = {
 };
 const persistReducerConfig = persistReducer(persistConfig, reducer);
 
-// 开启 redux-devtools
+// 开启 redux-devtools  compose-redux浏览器调试工具
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // 使用 redux 中间件
 const middleWares = applyMiddleware(reduxThunk, reduxPromise);
 
 // 创建 store
-const store: Store = createStore(persistReducerConfig, composeEnhancers(middleWares));
+const store: Store<{
+    configStore: configStoreType,
+    userStore: userStoreType,
+}, {
+    type: keyof typeof types
+    [data: string]: any
+}> = createStore(persistReducerConfig, composeEnhancers(middleWares));
 
 // 创建持久化 store
 const persistor = persistStore(store);

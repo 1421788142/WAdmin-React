@@ -14,9 +14,6 @@ const getRouters = (routerList: any[] = []) => {
         Object.entries(views).forEach(([file, module]) => {
             let fileName = file.split('/src/views/')?.pop()?.split('.tsx').shift()
             if (fileName === item.element) {
-                console.log(module)
-                // module.default.name = item.path
-                /*@vite-ignore*/
                 item.element = lazyLoad(React.lazy(module))
                 router.push(item)
             }
