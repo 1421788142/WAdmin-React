@@ -6,7 +6,7 @@ import reduxThunk from "redux-thunk";
 import reduxPromise from "redux-promise";
 import configStore from "./modules/config/reducer";
 import userStore from "./modules/user/reducer";
-import { userStoreType, configStoreType } from '@/redux/interface/index'
+import { StoreType } from '@/redux/interface/index'
 import * as types from './actionTypes'
 
 // 创建reducer(拆分reducer)
@@ -29,15 +29,11 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middleWares = applyMiddleware(reduxThunk, reduxPromise);
 
 // 创建 store
-const store: Store<{
-    configStore: configStoreType,
-    userStore: userStoreType,
-}, {
+const store: Store<StoreType, {
     type: keyof typeof types
     [data: string]: any
 }> = createStore(persistReducerConfig, composeEnhancers(middleWares));
 
 // 创建持久化 store
 const persistor = persistStore(store);
-
 export { store, persistor };

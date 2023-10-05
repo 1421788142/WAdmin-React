@@ -1,4 +1,5 @@
 export default {
+    loading: 'logging in...',
     sign: 'Sign In',
     userExpiresTitle: 'Kind tips',
     userExpiresDesc: 'User information expired, please log in again!',

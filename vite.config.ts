@@ -7,6 +7,7 @@ import setupPlugins from './vitePlugins'
 // @ts-ignore
 import pkg from "./package.json";
 import dayjs from "dayjs";
+
 const { dependencies, devDependencies, name, version } = pkg;
 const __APP_INFO__ = {
   pkg: { dependencies, devDependencies, name, version },
@@ -73,7 +74,6 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       preprocessorOptions: {
         less: {
           javascriptEnabled: true,
-          additionalData: `@import "@/styles/var.less";`
         }
       }
     },

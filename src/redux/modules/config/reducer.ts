@@ -6,16 +6,18 @@ import * as types from "@/redux/actionTypes";
 const configState: configStoreType = {
     language: 'zh',
     theme: {
-        // 色弱模式(weak) || 灰色模式(gray)
         weakOrGray: '',
-        // 默认 primary 主题颜色
-        primary: "#1890ff",
-        // 深色模式
+        primary: "#00B96B",
         isDark: false,
+        isHappy: false,
+        menuType: 'vertical',
+        menuFlipColor: false,
+        headerFlipColor: false,
     },
     component: {
         borderRadius: 10,
-        size: 'large'
+        size: 'middle',
+        sidebarWidth: 250
     }
 }
 
@@ -27,6 +29,9 @@ const appConfig = (state: configStoreType = configState, action: AnyAction) =>
                 break;
             case types.SET_THEME:
                 draftState.theme = action.theme;
+                break;
+            case types.SET_COMPONENT:
+                draftState.component = action.component;
                 break;
             default:
                 return draftState;

@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "@/redux";
 import { PersistGate } from "redux-persist/integration/react";
 import 'virtual:svg-icons-register' //本地icon
+import 'antd/dist/reset.css'
 // 根文件
 import App from "@/App";
 // 挂载多语言

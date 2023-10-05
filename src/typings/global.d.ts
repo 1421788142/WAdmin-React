@@ -13,3 +13,5 @@ declare type ViteEnv = {
     VITE_ROUTER_HISTORY: 'hash' | 'h5';
     VITE_PUBLIC_PATH: string
 }
+
+declare module 'loadsh'

@@ -26,7 +26,7 @@ export default function setupPlugins(env: ViteEnv, isBuild: boolean) {
             filename: "stats.html", //分析图生成的文件名
             gzipSize: true, // 收集 gzip 大小并将其显示
             brotliSize: true, // 收集 brotli 大小并将其显示
-        }),
+        })
     ]
     return plugins
 }

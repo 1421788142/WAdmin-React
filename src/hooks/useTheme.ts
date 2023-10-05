@@ -1,19 +1,20 @@
 import { configStoreType } from '@/redux/interface/index'
+import { transLessVar } from '@/utils/transLessVar'
 
 /**
  * @description 全局主题设置
  * */
-const useTheme = (theme: configStoreType['theme']) => {
-    const { weakOrGray, isDark } = theme
+const useTheme = (config: configStoreType) => {
+    const { theme } = config
     const initTheme = () => {
         // 灰色和弱色切换
         const body = document.documentElement as HTMLElement;
-        if (!weakOrGray) body.setAttribute("style", "");
-        if (weakOrGray === "weak") body.setAttribute("style", "filter: invert(80%)");
-        if (weakOrGray === "gray") body.setAttribute("style", "filter: grayscale(1)");
         // 暗色
-        document.documentElement.classList[isDark ? "add" : "remove"]("dark");
-        document.documentElement.setAttribute("data-theme", isDark ? 'dark' : '');
+        document.documentElement.classList[theme.isDark ? "add" : "remove"]("dark");
+        document.documentElement.setAttribute("data-theme", theme.isDark ? 'dark' : '');
+
+        let lessVar = transLessVar(config)
+        body.setAttribute("style", lessVar);
     };
     initTheme();
 

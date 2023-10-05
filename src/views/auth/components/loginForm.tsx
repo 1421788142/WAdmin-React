@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { loginInterface } from '@/apis/user'
-import { Form, Button, Input, Spin, Checkbox } from 'antd'
+import { Form, Button, Input, Spin, Checkbox, App, DatePicker } from 'antd'
 import ImageVerify from '@com/imageVerify'
 import { loginRules } from '../utils/rules'
-import { connect } from "react-redux";
 import type { userStoreType } from '@/redux/interface/index'
-import { setCurrentPage } from "@/redux/modules/user/action";
 import { Login } from "../utils";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom'
+import { timeState } from '@/utils/index'
+import { store } from '@/redux';
 
 const LoginForm:React.FC<{
   setCurrentPage:Function
-}> = (props) => {
+}> = () => {
   const [form] = Form.useForm();
   const [ loading, setLoading ] = useState(false)
   const [ imgLoading, setImgLoading ] = useState(false)
   const [code, setCode] = useState("");
-
+  const app = App.useApp()
   const { t } = useTranslation();
   const initialValues = {
     userName: 'wadmin', 
@@ -27,9 +27,17 @@ const LoginForm:React.FC<{
   const navigate = useNavigate();
   const onFinish = async (values: loginInterface) => {
     setLoading(true)
-    let res = await Login(values)
-    res && navigate('/home')
-    setLoading(!res)
+    app.message.loading(t('login.loading'))
+    let { status } = await Login(values)
+    setLoading(false)
+    app.message.destroy()
+    if(status){
+      app.notification.open({
+          message: t('login.loginOk'),
+          description: `${timeState()},${store.getState().userStore.userInfo?.userName}`,
+      });
+      navigate('/', { replace: true })
+    }
   }
 
   const resetImgCode = ()=>{
@@ -40,6 +48,13 @@ const LoginForm:React.FC<{
   const imageVerifyRef = React.createRef<{
     updateImgCode:Function
   }>()
+
+  const setCurrentPage = (currentPage:userStoreType['currentPage'])=>{
+    store.dispatch({
+      type:'SET_CURRENT_PAGE',
+      currentPage
+    })
+  }
 
   return (<>
     <Form
@@ -91,21 +106,17 @@ const LoginForm:React.FC<{
     </Form>
 
     <div className="grid grid-cols-1 gap-2 xl:grid-cols-3">
-      <Button onClick={()=>props.setCurrentPage(2)}>
-        <span className="text-sm">{ t("login.phoneLogin") }</span>
+      <Button onClick={()=>setCurrentPage(2)}>
+        <span className="text-[12px]">{ t("login.phoneLogin") }</span>
       </Button>
-      <Button onClick={()=>props.setCurrentPage(3)}>
-        <span className="text-sm">{ t("login.qrCodeLogin") }</span>
+      <Button onClick={()=>setCurrentPage(3)}>
+        <span className="text-[12px]">{ t("login.qrCodeLogin") }</span>
       </Button>
-      <Button onClick={()=>props.setCurrentPage(4)}>
-        <span className="text-sm">{ t("login.register") }</span>
+      <Button onClick={()=>setCurrentPage(4)}>
+        <span className="text-[12px]">{ t("login.register") }</span>
       </Button>
     </div>
   </>)
 }
 
-const mapStateToProps = (state: {
-  userStore: userStoreType
-}) => state.userStore;
-const mapDispatchToProps = { setCurrentPage };
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm

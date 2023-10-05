@@ -5,7 +5,7 @@ const ErrorPage403 = ()=>{
 
   const navigate = useNavigate();
   const goBack = () => {
-    navigate(-1)
+    navigate('/', { replace: true })
   }
 
   return <>
@@ -15,8 +15,10 @@ const ErrorPage403 = ()=>{
       </div>
       <div className="ml-[5vw]">
         <h2 className="text-6xl font-bold text-w text-stone-600">403</h2>
-        <p className="text-xl">抱歉，您无权访问该页面~🙅‍♂️🙅‍♀️</p>
-        <Button type="primary" onClick={goBack}>返回上一页</Button>
+        <p className="my-4 text-lg">抱歉，您无权访问该页面~🙅‍♂️🙅‍♀️</p>
+        <Button type="primary" onClick={goBack}>
+          <span className='text-sm'>返回首页</span>
+        </Button>
       </div>
     </div>
   </>

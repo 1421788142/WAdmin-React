@@ -1,17 +1,11 @@
-import { Navigate, useRoutes, RouteObject } from "react-router-dom";
+import { useRoutes, RouteObject } from "react-router-dom";
 import Login from "@/views/auth/login";
 import Error403 from "@/views/errors/403";
 import Error404 from "@/views/errors/404";
 import { getRouters } from "./utils/autoLoad";
-import { menu } from "@/assets/js/menu";
 
 const rootRouter:RouteObject[] = [
-    {
-		path: "/",
-		element: <Navigate to="/login" />
-	},
-	getRouters(menu),
-    {
+	{
 		path: "/login",
 		element: <Login />,
 		handle: {
@@ -23,23 +17,34 @@ const rootRouter:RouteObject[] = [
 		path: "/403",
 		element: <Error403 />,
 		handle: {
-			title: "登录页",
-			key: "login"
+			title: "暂无权限",
+			key: "403"
 		}
 	},
 	{
-		path: "/404",
+		path: "*",
 		element: <Error404 />,
 		handle: {
-			title: "登录页",
-			key: "login"
+			title: "暂无页面",
+			key: "404"
 		}
 	},
 ]
 
+let userRouter = {} as {
+    path: string;
+    name: string;
+    element: JSX.Element;
+    children: RouteObject[];
+}
+let hasLoad = false
+
 const Router = () => {
-	const routes = useRoutes(rootRouter);
+	// 保存自动注册的路由
+	if(!hasLoad) userRouter = getRouters()
+	const routes = useRoutes([...rootRouter, userRouter]);
+	hasLoad = true
 	return routes;
 };
 
-export default Router;
+export default Router

@@ -17,3 +17,5 @@ export const SET_USER_ROUTER = "SET_USER_ROUTER";
 export const SET_LANGUAGE = "SET_LANGUAGE";
 // 更新 项目主题
 export const SET_THEME = "SET_THEME";
+// 更新 项目组件配置
+export const SET_COMPONENT = "SET_COMPONENT"; 

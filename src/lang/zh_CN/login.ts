@@ -1,4 +1,5 @@
 export default {
+    loading: '登录中...',
     sign: '登录',
     userExpiresTitle: '温馨提示',
     userExpiresDesc: '用户信息过期,请重新登录!',

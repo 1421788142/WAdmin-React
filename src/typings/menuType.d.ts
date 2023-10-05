@@ -1,7 +1,7 @@
 interface menuListType {
     title: string, //标题
     icon: string, //图标
-    menuType: string, //菜单类型(M:目录 C:菜单 F:按钮)
+    menuType: 'M' | 'C' | 'F', //菜单类型(M:目录 C:菜单 F:按钮)
     hidden: number, //是否显示页面(0否1是)
     keepAlive: number, //是否缓存页面(0否1是)
     status: number, //菜单状态(0停用1启用)
@@ -10,7 +10,8 @@ interface menuListType {
     perms: string,//权限标识
     path: string,//路径
     meta: meta,//原信息
-    component: string,//组件位置
+    component: string,//组件位置 兼容后台请求数据 vue模式
+    element?: React.ReactNode, //最终注册组件
     id: number,//id
     pId: number,//父级id
     children?: menuListType[],

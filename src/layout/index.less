@@ -1,0 +1,218 @@
+.w-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    &-content{
+        flex: 1;
+        background-color: var(--wadmin-container-bg);
+        display: flex;
+        flex-direction: column;
+    }
+    .w-container-main{
+        display: flex;
+        flex: 1;
+        &-content{
+            flex: 1;
+            margin: 5px;
+            overflow: auto;
+        }
+    }
+}
+
+.set-up {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: -35px;
+  top: 40vh;
+  z-index: 9;
+  transition: all 0.3s;
+  border-radius: 15px 0 0 15px !important;
+  overflow: hidden;
+
+  .set-up-btn {
+    width: 100% !important;
+    height: 100% !important;
+    line-height: 45px !important;
+  }
+}
+
+.set-up:hover {
+  right: 0;
+}
+
+  // 菜单title文字溢出
+.cardp {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0 !important;
+}
+.layout-item {
+  cursor: pointer;
+  width: 47%;
+  height: 80px;
+  border: 2px solid var(--wadmin-primary-color);
+  border-radius: var(--wadmin-border-radius);
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  position: relative;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px var(--wadmin-primary-color-8);
+  display: flex;
+  .layout-menu,
+  .layout-light,
+  .layout-content,
+  .layout-container {
+  border-radius: var(--wadmin-border-radius);
+  }
+  .icon {
+    color: var(--wadmin-primary-color);
+    display: block;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 20px;
+    display: none;
+  }
+}
+.vertical {
+  .layout-menu {
+    width: 12px;
+    height: 100%;
+    background-color: var(--wadmin-primary-color);
+  }
+  .layout-container {
+    width: 84%;
+    display: flex;
+    flex-direction: column;
+    .layout-light {
+      width: 100%;
+      height: 12px;
+      background-color: var(--wadmin-primary-color-8);
+    }
+    .layout-content {
+      width: 100%;
+      margin-top: 5px;
+      flex: 1;
+      background-color: var(--wadmin-primary-color-1);
+      border: 1px dashed var(--wadmin-primary-color-5);
+    }
+  }
+}
+.classic {
+  .layout-menu {
+    position: absolute;
+    bottom: 7%;
+    width: 12px;
+    height: 62%;
+    background-color: var(--wadmin-primary-color-8);
+  }
+  .layout-container {
+    position: absolute;
+    right: 5%;
+    width: 75%;
+    display: flex;
+    height: 80%;
+    flex-direction: column;
+    .layout-light {
+      width: 120%;
+      position: absolute;
+      left: -19%;
+      height: 12px;
+      background-color: var(--wadmin-primary-color);
+    }
+    .layout-content {
+      position: absolute;
+      width: 100%;
+      height: 80%;
+      bottom: -7%;
+      margin-top: 5px;
+      background-color: var(--wadmin-primary-color-1);
+      border: 1px dashed var(--wadmin-primary-color-5);
+    }
+  }
+}
+.transverse {
+  flex-direction: column;
+  .layout-menu {
+    width: 100%;
+    height: 12px;
+    background-color: var(--wadmin-primary-color);
+  }
+  .layout-container {
+    margin-top: 5px;
+    width: 100%;
+    flex: 1;
+    background-color: var(--wadmin-primary-color-1);
+    border: 1px dashed var(--wadmin-primary-color-5);
+  }
+}
+.columns {
+  .layout-menu {
+    width: 12px;
+    height: 100%;
+    background-color: var(--wadmin-primary-color);
+  }
+  .layout-container {
+    position: absolute;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .layout-light {
+      position: absolute;
+      left: 18%;
+      width: 12px;
+      height: 87%;
+      background-color: var(--wadmin-primary-color-8);
+    }
+    .layout-content {
+      width: 75%;
+      position: absolute;
+      right: -13%;
+      height: 86%;
+      background-color: var(--wadmin-primary-color-1);
+      border: 1px dashed var(--wadmin-primary-color-5);
+    }
+  }
+}
+.active {
+  .icon {
+    display: block;
+  }
+}
+
+.dark{
+  .layout-content{
+    background-color: var(--wadmin-primary-color-3) !important; 
+  }
+  .horizontal .layout-container{
+    background-color: var(--wadmin-primary-color-3) !important; 
+  }
+}
+
+.color-active{
+  border-radius: var(--wadmin-border-radius);
+}
+
+// 菜单样式
+.ant-menu{
+  border: none !important;
+}
+
+.menu-box::-webkit-scrollbar{//隐藏或取消滚动条
+  display: none;
+}
+
+.content-bg{
+  background-color: var(--wadmin-content-bg) !important
+}
+
+// 混入菜单的高亮
+.columns-active{
+  background-color: var(--wadmin-primary-color);
+  color: #fff;
+}

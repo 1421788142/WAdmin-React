@@ -16,6 +16,6 @@ declare interface RequestOptions {
 declare interface Result<T> {
     code: number,
     message: string,
-    msg?: string,
+    msg: string,
     data: T
 }
