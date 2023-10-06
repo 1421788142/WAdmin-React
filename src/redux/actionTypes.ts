@@ -18,4 +18,6 @@ export const SET_LANGUAGE = "SET_LANGUAGE";
 // 更新 项目主题
 export const SET_THEME = "SET_THEME";
 // 更新 项目组件配置
-export const SET_COMPONENT = "SET_COMPONENT"; 
+export const SET_COMPONENT = "SET_COMPONENT";
+// 更新 折叠菜单
+export const SET_COLLAPSED = "SET_COLLAPSED"; 

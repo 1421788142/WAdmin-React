@@ -14,6 +14,7 @@ const configState: configStoreType = {
         menuFlipColor: false,
         headerFlipColor: false,
     },
+    collapsed: false,
     component: {
         borderRadius: 10,
         size: 'middle',

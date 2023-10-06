@@ -1,5 +1,6 @@
 import UserContainer from "./user"
 import HistoryTag from '../tag/index'
+import Breadcrumb from './breadcrumb'
 import HeaderMenu from './menu'
 import { StoreType } from '@/redux/interface/index'
 import Logo from '../logo'
@@ -40,10 +41,8 @@ const Header = (props:StoreType) => {
                 <div className="h-[50px] flex-1 flex justify-between items-center">
                     {
                         configStore.theme.menuType === 'transverse' ? 
-                        <HeaderMenu {...props} />:
-                        <div>
-                            面包屑
-                        </div>
+                        <HeaderMenu {...props} /> :
+                        <Breadcrumb configStore={configStore} />
                     }
                     <UserContainer></UserContainer>
                 </div>

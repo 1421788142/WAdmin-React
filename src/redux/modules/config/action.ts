@@ -15,3 +15,8 @@ export const setComponent = (component: configStoreType['component']) => ({
     type: types.SET_COMPONENT,
     component
 })
+
+export const setCollapsed = (collapsed: configStoreType['collapsed']) => ({
+    type: types.SET_COLLAPSED,
+    collapsed
+})

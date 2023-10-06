@@ -1,6 +1,7 @@
 import { store } from "@/redux";
 import AntdIcon from '@/components/antdIcon';
 import HasTooltip from '@/layout/components/menu/hasTooltip';
+import config from '../../../public/config'
 
 /**
  * @description 查询出打开菜单
@@ -63,4 +64,51 @@ export const getFirstMenu = (userRouterList: menuListType[]) => {
             icon:<AntdIcon component={iconNameCase(menu.icon) as any}/>
         }
     })
+}
+
+/**
+ * @description 查询出面包屑
+ * @param {string} fullPath //当前的菜单
+ * @param {boolean} hasLoad //重载查询出来的数据
+ * @param {function} callback //重载查询出来的数据
+ * */
+export const setBreadCrumbs = (fullPath: string, hasLoad = false, callback:Function = (menu:menuListType)=> null): menuListType[] => {
+    let breadList = findFn<menuListType>(
+        () => (fullPath === '/' ? config.homePath : fullPath),
+        (val: menuListType) => val.path,
+        (val: menuListType) => {
+            if(!hasLoad) return val
+            return {
+                title:(<span className="cursor-pointer">
+                    <AntdIcon component={iconNameCase(val.icon) as any}/>
+                    <span>{ val.title }</span>
+                </span>),
+                menu:val.children ? {
+                    items:val.children.map(x=>{
+                        return {
+                            title:(<div>
+                                <AntdIcon component={iconNameCase(x.icon) as any}/>
+                                <span className="ml-1">{ x.title }</span>
+                            </div>),
+                            href:x.path,
+                            onClick:()=>callback(x)
+                        }
+                    })
+                } : null
+            }
+        },
+    )
+    return !hasLoad ? breadList : [
+        {
+            title:(<span className="cursor-pointer" onClick={()=>callback({
+                path:config.homePath,
+                component:config.homePath,
+                children:[]
+            })}>
+                <AntdIcon component={iconNameCase('home-filled') as any}/>
+                <span>首页</span>
+            </span>),
+        } as any,
+        ...breadList
+    ]
 }

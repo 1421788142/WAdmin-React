@@ -26,6 +26,7 @@ export type configStoreType = {
         menuFlipColor: boolean,//菜单主题反转
         headerFlipColor: boolean,//头部主题反转
     },
+    collapsed: boolean,
     component: {
         borderRadius: number,//圆角
         size: SizeType,//尺寸

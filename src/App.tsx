@@ -1,5 +1,5 @@
 import Router from "@/router/index";
-import { useState, useEffect, memo, useMemo } from "react";
+import { useState, useEffect, memo } from "react";
 import { connect } from "react-redux";
 import { HashRouter } from "react-router-dom";
 import { ConfigProvider, theme, App } from "antd";
@@ -50,7 +50,7 @@ const Root = (props?:configStoreType) => {
   return (
     <HashRouter>
       <ConfigProvider 
-        locale={i18nLocale} 
+        locale={i18nLocale}
         componentSize={component.size}
         theme={{
           algorithm:sysTheme.isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,

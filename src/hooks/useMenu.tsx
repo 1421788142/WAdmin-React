@@ -27,6 +27,7 @@ export const useMenu = (option: {
     const { userStore, theme, pathname, hasOpenKey = true } = option
 
     const onClick = (data:any) => {
+        if(pathname === data.key) return
         option.navigate(data.key, { replace: true })
     }
 

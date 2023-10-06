@@ -1,5 +1,6 @@
 import { Menu } from 'antd';
 import type { MenuProps } from 'antd';
+import { memo } from 'react'
 const Menus = (
     config:MenuProps
 )=>{
@@ -11,4 +12,4 @@ const Menus = (
     </>
 }
 
-export default Menus
+export default memo(Menus)
