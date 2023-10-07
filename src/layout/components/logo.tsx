@@ -8,7 +8,7 @@ const Logo = (props:{
 })=>{
     const { VITE_PROJECT_NAME, VITE_PROJECT_LOGO } = import.meta.env
 
-    const { theme } = props.configStore
+    const { theme, collapsed } = props.configStore
 
     const classNames = useMemo(()=>{
         const name = [
@@ -27,7 +27,7 @@ const Logo = (props:{
     return (
         <div className={classNames}>
             <Avatar size={50} src={getAssets(VITE_PROJECT_LOGO)} />
-            <span className='ml-4 font-bold text-[28px]'>{ VITE_PROJECT_NAME }</span>
+            { (!collapsed || theme.menuType === 'transverse') && <span className='ml-4 font-bold text-[28px]'>{ VITE_PROJECT_NAME }</span> }
         </div>
     )
 }

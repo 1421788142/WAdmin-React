@@ -3,7 +3,7 @@ import { useState, useMemo } from 'react'
 import { useSelector } from 'react-redux';
 import { StoreType } from '@/redux/interface/index'
 
-const HasTooltip = (props:{ title:string })=>{
+const HasTooltip = (props:{ title:string, hasTip?:boolean })=>{
   const [showTooltip, setShowTooltip] = useState(false)
   const { title } = props
   const visibilityChange = (event:any) => {
@@ -20,10 +20,11 @@ const HasTooltip = (props:{ title:string })=>{
   };
 
   const configStore = useSelector((state:StoreType)=>state.configStore)
-  const hasTip = useMemo(()=>{
-    return ['transverse'].includes(configStore.theme.menuType)
-  },[configStore.theme.menuType])
+  const { theme, collapsed } = configStore
 
+  const hasTip = useMemo(()=>{
+    return props.hasTip ? ! props.hasTip : (['transverse'].includes(theme.menuType) || collapsed)
+  },[theme.menuType,collapsed])
 
   return (
     <span>

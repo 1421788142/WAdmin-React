@@ -58,7 +58,7 @@ export const getFirstMenu = (userRouterList: menuListType[]) => {
     return userRouterList.map(menu=>{
         return {
             path:menu.path,
-            title: <HasTooltip title={menu.title} />,
+            title: <HasTooltip hasTip={true} title={menu.title} />,
             component:menu.component,
             id:menu.id,
             icon:<AntdIcon component={iconNameCase(menu.icon) as any}/>

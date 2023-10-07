@@ -49,7 +49,7 @@ const Columns = (props:StoreType) => {
                             <div 
                                 className={ 
                                     [
-                                        'text-center cursor-pointer py-2 my-1',
+                                        'text-center cursor-pointer py-2 my-1 border-radius',
                                         firstMenuActive === menu.path ? 'columns-active' : ''
                                     ].join(' ') 
                                 }
@@ -89,18 +89,20 @@ const Columns = (props:StoreType) => {
         userStore,
         theme:configStore.theme,
         navigate,
-        pathname
+        pathname,
+        collapsed:configStore.collapsed
     })
 
     const ChildrenMenu = ()=>{
         return (
             <div className={ChildrenMenuClass}>
-                <div className='font-bold flex h-[55px] items-center text-[24px] justify-center'>
+                { !configStore.collapsed && <div className='font-bold flex h-[55px] items-center text-[24px] justify-center'>
                     <span>{ VITE_PROJECT_NAME }</span>
-                </div>
+                </div>}
                 <Menus
                     items={menuItems(childrenRoute)}
                     {...menuConfig}
+                    inlineCollapsed={configStore.collapsed}
                 />
             </div>
         )
@@ -117,7 +119,7 @@ const Columns = (props:StoreType) => {
             </div>
             { firstMenuCont }
         </div>
-        <div className={['w-[0px] columns-sider',( !childrenRoute.length ? 'columns-no-sider' : '' )].join(' ')}>
+        <div className={['w-[0px] columns-sider',( !childrenRoute.length ? 'columns-no-sider' : '' ),((configStore.collapsed && childrenRoute.length) ? '!w-[70px]' : '')].join(' ')}>
             <ChildrenMenu />
         </div>
     </div>

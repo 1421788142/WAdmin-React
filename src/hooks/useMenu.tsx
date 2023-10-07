@@ -12,19 +12,19 @@ export type UseMenuReturnType = {
     selectedKeys:Array<string>,
     openKeys?:Array<string>,
     onOpenChange:(openKeys: string[]) => void;
-}
+} & MenuProps
 
 export const useMenu = (option: {
     userStore:userStoreType,
     theme:configStoreType['theme'],
+    collapsed:configStoreType['collapsed'],
     navigate: NavigateFunction,
     pathname:string,
     hasOpenKey?:boolean
-
 }): UseMenuReturnType => {
     console.log('useMenu')
 
-    const { userStore, theme, pathname, hasOpenKey = true } = option
+    const { userStore, theme, pathname, hasOpenKey = true, collapsed = true } = option
 
     const onClick = (data:any) => {
         if(pathname === data.key) return
@@ -36,8 +36,9 @@ export const useMenu = (option: {
 
     useEffect(()=>{
         setSelectedKeys([pathname === '/' ? config.homePath : pathname])
+        if(collapsed) return
         setOpenKeys(openKey(pathname))
-    },[pathname])
+    },[pathname,collapsed])
 
     // 默认只展开一个父级菜单 保存一级目录layouy
     const rootSubmenuKeys = useMemo(()=>{
@@ -67,11 +68,11 @@ export const useMenu = (option: {
         selectedKeys,
         openKeys,
         onClick,
-        onOpenChange
+        onOpenChange,
     }
 
     // 删除没有用的openKeys(原因头部模式菜单鼠标移入事件触发时机不对)
     !hasOpenKey && delete returnData['openKeys']
 
-    return returnData
+    return useMemo(()=>returnData,[option])
 }

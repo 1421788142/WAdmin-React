@@ -5,11 +5,12 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { ConfigProvider, theme } from "antd";
 import { configStoreType } from '@/redux/interface/index'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
+import { store } from '@/redux'
 
 const BreadcrumbCon = (props:{
     configStore:configStoreType
 })=>{
-    const { theme:sysTheme } = props.configStore
+    const { theme:sysTheme, collapsed } = props.configStore
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -36,15 +37,19 @@ const BreadcrumbCon = (props:{
     },[pathname])
 
     return (
-        <div className='pl-2'>
+        <div>
             <ConfigProvider
                 theme={{
                     algorithm: sysTheme.isDark || sysTheme.headerFlipColor ? theme.darkAlgorithm : theme.defaultAlgorithm
                 }}
             >
                 <div className='flex items-center'>
-                    <MenuUnfoldOutlined />
-                    <MenuFoldOutlined />
+                    <div className='mx-2 text-xl cursor-pointer' onClick={()=>store.dispatch({
+                        type:'SET_COLLAPSED',
+                        collapsed:!collapsed
+                    })}>
+                        { collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined /> }
+                    </div>
                     <Breadcrumb
                         items={crumbsList}
                     />

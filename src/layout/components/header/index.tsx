@@ -10,15 +10,17 @@ import { useMemo } from 'react'
 const Header = (props:StoreType) => {
     const { configStore, userStore } = props
 
-    const { component, theme } = configStore
+    const { component, theme, collapsed } = configStore
 
     const logoStyle = useMemo<React.CSSProperties>(()=>{
         return {
-            width: `${component.sidebarWidth}px`,
+            width: `${collapsed && theme.menuType !== 'transverse' ? 70 : component.sidebarWidth}px`,
             height: '50px',
         }
     },[
         component.sidebarWidth,
+        collapsed,
+        theme.menuType
     ])
 
     const classNames = useMemo(()=>{

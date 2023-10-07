@@ -9,17 +9,18 @@ import { menuItems } from '@/layout/utils/menuItems';
 const Sidebar = (props:StoreType) => {
     const { configStore, userStore } = props
 
-    const { component, theme } = configStore
+    const { component, theme, collapsed } = configStore
 
     const wrapStyle = useMemo<React.CSSProperties>(()=>{
         return {
-            width: `${component.sidebarWidth}px`,
+            width: `${collapsed ? 70 : component.sidebarWidth}px`,
             backgroundColor:(theme.menuFlipColor && !theme.isDark) ? '#001529' : theme.isDark ? '#141414' : '#fff',
         }
     },[
         component.sidebarWidth,
         theme.menuFlipColor,
-        theme.isDark
+        theme.isDark,
+        collapsed
     ])
 
     const navigate = useNavigate();
@@ -35,8 +36,10 @@ const Sidebar = (props:StoreType) => {
                         userStore,
                         theme:configStore.theme,
                         navigate,
-                        pathname
+                        pathname,
+                        collapsed
                     })}
+                    inlineCollapsed={collapsed}
                 />
             </div>
         </div>

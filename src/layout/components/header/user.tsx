@@ -37,7 +37,7 @@ const UserContainer:React.FC = () => {
             <SetLan/>
             <div className="ml-10 mr-4">
                 <Dropdown menu={{items:dropdownMenu}} placement="bottomLeft">
-                    <div className="text-white cursor-pointer">
+                    <div className="cursor-pointer">
                         <Avatar src='https://cn.vitejs.dev/logo.svg' />
                         <span className="ml-2">彭于晏</span>
                     </div>

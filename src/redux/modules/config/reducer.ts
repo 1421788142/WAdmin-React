@@ -31,6 +31,9 @@ const appConfig = (state: configStoreType = configState, action: AnyAction) =>
             case types.SET_THEME:
                 draftState.theme = action.theme;
                 break;
+            case types.SET_COLLAPSED:
+                draftState.collapsed = action.collapsed;
+                break;
             case types.SET_COMPONENT:
                 draftState.component = action.component;
                 break;

@@ -2,6 +2,7 @@ import Theme from './theme'
 import MenuType from './menuType'
 import Primary from './primary'
 import SetCom from './setCom'
+import PageSet from './pageSet'
 import { useTranslation } from "react-i18next";
 import { Divider } from 'antd'
 import { connect } from "react-redux";
@@ -32,6 +33,12 @@ const SettingCon = (props?:configStoreType)=>{
             </Divider>
             <div className='w-full'>
                 <SetCom component={component}/>
+            </div>
+            <Divider>
+                <span className='text-sm'>📏 {t('layouts.projectConfig')}</span>
+            </Divider>
+            <div className='w-full'>
+                <PageSet configStore={props as configStoreType}/>
             </div>
         </div>
     </>
