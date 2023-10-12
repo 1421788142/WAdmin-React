@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { loginInterface } from '@/apis/user'
-import { Form, Button, Input, Spin, Checkbox, App, DatePicker } from 'antd'
+import { Form, Button, Input, Spin, Checkbox, App } from 'antd'
 import ImageVerify from '@com/imageVerify'
 import { loginRules } from '../utils/rules'
 import type { userStoreType } from '@/redux/interface/index'

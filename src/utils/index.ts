@@ -43,7 +43,6 @@ export const preload = (number: number = 500) => {
     })
 }
 
-
 /**
  * 一维array to TreeArray (dataList, 'id', 'pId') 必须要有父子id对应关系
  * @param {Array} target 需要处理为TreeArray的源数据

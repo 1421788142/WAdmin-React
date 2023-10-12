@@ -2,10 +2,9 @@ import { login, loginInterface, getRouter } from '@/apis/user/index'
 import { App } from 'antd'
 import i18n from "i18next";
 import { store } from '@/redux';
-import { arrayToTree, arrRemoval, timeState } from '@/utils/index'
+import { arrayToTree, arrRemoval } from '@/utils/index'
 
 
-const { t } = i18n
 export const Login = async (query: loginInterface): Promise<{ status:number }> => {
     const { code, data } = await login(query)
     if (code === 200) {

@@ -3,6 +3,9 @@ import Login from "@/views/auth/login";
 import Error403 from "@/views/errors/403";
 import Error404 from "@/views/errors/404";
 import { getRouters } from "./utils/autoLoad";
+import { useMemo } from "react";
+import { StoreType } from '@/redux/interface/index'
+import { useSelector } from 'react-redux'
 
 const rootRouter:RouteObject[] = [
 	{
@@ -37,14 +40,11 @@ let userRouter = {} as {
     element: JSX.Element;
     children: RouteObject[];
 }
-let hasLoad = false
 
 const Router = () => {
-	// 保存自动注册的路由
-	if(!hasLoad) userRouter = getRouters()
-	const routes = useRoutes([...rootRouter, userRouter]);
-	hasLoad = true
-	return routes;
+	const userStore = useSelector((state:StoreType)=>state.userStore)
+	const routers = useMemo(()=>getRouters(),[userStore.userRouterList])
+	return useRoutes([...rootRouter, routers])
 };
 
 export default Router
