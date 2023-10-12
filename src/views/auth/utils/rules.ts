@@ -122,7 +122,3 @@ export const registerRules: Record<string, Rule[]> = {
         }
     ]
 }
-
-export const updateRules: Record<string, Rule[]> = {
-    ...registerRules
-}

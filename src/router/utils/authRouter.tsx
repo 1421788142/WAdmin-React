@@ -4,6 +4,7 @@ import { start, close } from '@/plugins/nprogress'
 import { store } from "@/redux";
 import { userInterface } from '@/apis/user/index'
 import { getFlatArr } from '@u/index'
+import config from "../../../public/config";
 
 // 是否需要登录
 const isLogin = (pathName:string,userInfo:userInterface | null)=>{
@@ -24,6 +25,7 @@ const AuthRouter = (props: { children: JSX.Element }) => {
     const { VITE_PROJECT_NAME } = import.meta.env
     const { userInfo, token, userRouterList } = store.getState().userStore
     const { pathname } = useLocation();
+    if(pathname === '/' && userInfo && userRouterList.length) return <Navigate to={config?.homePath || '/'} replace />; 
 
     //跳转路由清除弹窗
     Modal.destroyAll()

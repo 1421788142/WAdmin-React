@@ -34,13 +34,6 @@ const rootRouter:RouteObject[] = [
 	},
 ]
 
-let userRouter = {} as {
-    path: string;
-    name: string;
-    element: JSX.Element;
-    children: RouteObject[];
-}
-
 const Router = () => {
 	const userStore = useSelector((state:StoreType)=>state.userStore)
 	const routers = useMemo(()=>getRouters(),[userStore.userRouterList])

@@ -10,7 +10,7 @@ import { getBrowserLang } from '@/utils/index'
 import AuthRouter from "@/router/utils/authRouter";
 import { setLanguage } from "@/redux/modules/config/action";
 import useTheme from "@/hooks/useTheme";
-import type { configStoreType } from '@/redux/interface/index'
+import type { StoreType } from '@/redux/interface/index'
 import { HappyProvider } from '@ant-design/happy-work-theme';
 
 const RouterView = memo(()=>{
@@ -21,10 +21,10 @@ const RouterView = memo(()=>{
     )
 })
 
-const Root = (props?:configStoreType) => {
-  const { language, theme:sysTheme, component } = props as configStoreType;
+const Root = (props?:StoreType['configStore']) => {
+  const { language, theme:sysTheme, component } = props as StoreType['configStore'];
   useEffect(()=>{
-    useTheme(props as configStoreType)
+    useTheme(props as StoreType['configStore'])
   }),[component,theme]
   const [i18nLocale, setI18nLocale]  = useState(zhCN)
 
@@ -68,8 +68,6 @@ const Root = (props?:configStoreType) => {
   );
 }
 
-const mapStateToProps = (state: {
-  configStore: configStoreType
-}) => state.configStore;
+const mapStateToProps = (state: StoreType) => state.configStore;
 const mapDispatchToProps = { setLanguage };
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

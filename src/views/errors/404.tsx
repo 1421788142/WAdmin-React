@@ -1,8 +1,8 @@
 import { Button, Image } from 'antd'
 import { getAssets } from "@/utils/index";
 import { useNavigate } from 'react-router-dom'
-const ErrorPage403 = ()=>{
 
+const App = ()=>{
   const navigate = useNavigate();
   const goBack = () => {
     navigate('/', { replace: true })
@@ -24,5 +24,5 @@ const ErrorPage403 = ()=>{
   </>
 }
 
-export default ErrorPage403
+export default App
 

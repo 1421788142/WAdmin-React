@@ -29,7 +29,7 @@ const LoginForm:React.FC = () => {
     let { status } = await Login(values)
     setLoading(false)
     app.message.destroy()
-    if(status){
+    if(status === 200){
       app.notification.open({
           message: t('login.loginOk'),
           description: `${timeState()},${store.getState().userStore.userInfo?.userName}`,
