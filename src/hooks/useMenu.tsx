@@ -17,7 +17,7 @@ export type UseMenuReturnType = {
 export const useMenu = (option: {
     userStore:userStoreType,
     theme:configStoreType['theme'],
-    collapsed:configStoreType['collapsed'],
+    collapsed?:configStoreType['collapsed'],
     navigate: NavigateFunction,
     pathname:string,
     hasOpenKey?:boolean

@@ -24,7 +24,7 @@ const SettingCon = (props?:configStoreType)=>{
             </Divider>
             <div className='w-full'>
                 <div className='flex justify-center mb-4'>
-                    <Theme isDark={ theme.isDark } />
+                    <Theme />
                 </div>
                 <Primary theme={theme} />
             </div>

@@ -3,10 +3,7 @@ import SvgIcon from '@com/svgIcon'
 import { store } from '@/redux/index'
 import { memo } from 'react'
 
-const Theme = (props:{
-    isDark:boolean
-})=>{
-    const { isDark } = props;
+const Theme = ()=>{
     const chnageDark = (val:boolean)=>{
         store.dispatch({
             type:'SET_THEME',
@@ -20,7 +17,7 @@ const Theme = (props:{
     return (
         <div className='theme'>
             <Switch
-                defaultChecked={ isDark }
+                defaultChecked={ store.getState().configStore.theme.isDark }
                 checkedChildren={<SvgIcon name='sun' iconStyle={{...iconStyle,height:25}} />}
                 unCheckedChildren={<SvgIcon name='moon' iconStyle={{...iconStyle,height:25}} />}
                 onChange={chnageDark} 

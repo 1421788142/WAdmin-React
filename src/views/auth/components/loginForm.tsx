@@ -10,9 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { timeState } from '@/utils/index'
 import { store } from '@/redux';
 
-const LoginForm:React.FC<{
-  setCurrentPage:Function
-}> = () => {
+const LoginForm:React.FC = () => {
   const [form] = Form.useForm();
   const [ loading, setLoading ] = useState(false)
   const [ imgLoading, setImgLoading ] = useState(false)

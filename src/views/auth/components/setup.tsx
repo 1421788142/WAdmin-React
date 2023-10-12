@@ -1,5 +1,6 @@
 import Theme from '@/layout/components/setting/components/theme'
 import Lan from '@/layout/components/header/setupLan'
+import { store } from '@/redux'
 
 const Setup = ()=>{
     return (
