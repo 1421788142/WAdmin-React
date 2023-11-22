@@ -11,14 +11,17 @@
 
 ### 一、在线预览 👀
 
-- Link：http://121.4.119.52:83
+- Link：https://1421788142.github.io/xiaowu.pro.wadmin.react/
 
 - 另外推荐一个Vue3开源项目
-- Link：http://121.4.119.52
+- Link：https://1421788142.github.io/xiaowu.pro.wadmin/
+
+- 另外推荐一个我的小项目，也是平时写着练习的
+- Link：https://1421788142.github.io/xiaowu.pro.offic/
 
 ### 二、项目文档 📚
 
-- 项目文档地址：http://121.4.119.52:82/
+- 项目文档地址：https://1421788142.github.io/xiaowu.pro.wadmin.react.doc/
 
 ### 三、Git 仓库地址 (欢迎 Star⭐)
 

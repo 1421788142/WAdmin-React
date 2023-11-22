@@ -2,7 +2,6 @@ import React from "react"
 import SetLan from "./setupLan"
 import { Avatar, Dropdown } from 'antd'
 import type { MenuProps } from 'antd';
-import { Link } from "react-router-dom";
 import { store } from '@/redux';
 import { useNavigate } from 'react-router-dom'
 
