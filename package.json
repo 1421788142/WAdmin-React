@@ -51,6 +51,7 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.4.2",
     "rollup-plugin-visualizer": "^5.9.2",
+    "screenfull": "^6.0.2",
     "styled-components": "^6.0.8",
     "tailwindcss": "^3.3.3",
     "vite-plugin-html": "^3.2.0",

@@ -14,6 +14,7 @@ export interface userInterface {
     userId: number,
     avatar: string,
     createdTime: string,
+    updateTime: string,
 }
 
 export interface roleInterafce {
@@ -27,11 +28,18 @@ export interface roleInterafce {
 }
 
 export const login = (data: loginInterface) => {
-    return Http.post<userInterface>({ url: `login`, data })
+    return Http.post<{
+        access_token: string
+    }>({ url: `auth/login`, data })
 }
 
+export const userInfo = () => {
+    return Http.get<userInterface>({ url: `auth/user/info` })
+}
+
+
 export const getRouter = () => {
-    return Http.get<tableResultData<menuListType>>({ url: `user/router` })
+    return Http.get<tableResultData<menuListType>>({ url: `auth/user/menu` })
 }
 
 export const getRole = (data: queryTableInterface) => {

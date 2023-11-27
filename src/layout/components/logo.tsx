@@ -27,7 +27,7 @@ const Logo = (props:{
     return (
         <div className={classNames}>
             <Avatar size={50} src={getAssets(VITE_PROJECT_LOGO)} />
-            { (!collapsed || theme.menuType === 'transverse') && <span className='ml-4 font-bold text-[28px]'>{ VITE_PROJECT_NAME }</span> }
+            { (!collapsed || theme.menuType === 'transverse') && <span className='ml-4 font-bold text-[28px] truncate'>{ VITE_PROJECT_NAME }</span> }
         </div>
     )
 }

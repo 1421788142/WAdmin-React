@@ -30,3 +30,7 @@ export const setupUserRouter = (routerList: userStoreType['userRouterList']) => 
     type: types.SET_USER_ROUTER,
     routerList
 })
+
+export const loginOut = () => ({
+    type: types.LOGIN_OUT
+})

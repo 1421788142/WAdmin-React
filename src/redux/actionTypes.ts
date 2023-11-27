@@ -11,6 +11,8 @@ export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SET_REQUEST_RECORD = "SET_REQUEST_RECORD";
 // 缓存请求记录
 export const SET_USER_ROUTER = "SET_USER_ROUTER";
+// 退出登录
+export const LOGIN_OUT = "LOGIN_OUT";
 
 // 系统配置
 // 更新 语言
@@ -20,4 +22,6 @@ export const SET_THEME = "SET_THEME";
 // 更新 项目组件配置
 export const SET_COMPONENT = "SET_COMPONENT";
 // 更新 折叠菜单
-export const SET_COLLAPSED = "SET_COLLAPSED"; 
+export const SET_COLLAPSED = "SET_COLLAPSED";
+// 重置配置
+export const RESET_CONFIG = "RESET_CONFIG";

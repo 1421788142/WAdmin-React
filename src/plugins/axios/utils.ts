@@ -57,7 +57,7 @@ export function setUpConfig(config: AxiosRequestConfig, options: RequestOptions)
   let RequestConfig: AxiosRequestConfig = Object.assign({}, config)
   if (!options) return RequestConfig
   const { token } = store.getState().userStore
-  const { ignoreCancelToken, withToken } = options
+  const { ignoreCancelToken, withToken = true } = options
 
   // 是否headers携带令牌
   !ignoreCancelToken && cancelUrlToken()

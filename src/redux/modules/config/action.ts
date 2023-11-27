@@ -20,3 +20,7 @@ export const setCollapsed = (collapsed: configStoreType['collapsed']) => ({
     type: types.SET_COLLAPSED,
     collapsed
 })
+
+export const resetConfig = () => ({
+    type: types.RESET_CONFIG
+})

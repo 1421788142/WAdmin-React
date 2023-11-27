@@ -4,13 +4,35 @@ import Primary from './primary'
 import SetCom from './setCom'
 import PageSet from './pageSet'
 import { useTranslation } from "react-i18next";
-import { Divider } from 'antd'
+import { Divider, Button, App } from 'antd'
 import { connect } from "react-redux";
 import type { configStoreType } from '@/redux/interface/index'
+import { store } from '@/redux'
+import { useNavigate } from 'react-router-dom'
 
 const SettingCon = (props?:configStoreType)=>{
     const { t } = useTranslation();
     const { theme, component } = props as configStoreType;
+    const app = App.useApp()
+    const navigate = useNavigate()
+
+    const resetConfig = async (hasLogin:boolean = false)=>{
+        try {
+            app.message.loading('重置中...')
+            store.dispatch({
+                type:'RESET_CONFIG'
+            })
+        } finally {
+            setTimeout(()=>{
+                if(hasLogin){
+                    store.dispatch({ type:'LOGIN_OUT' })
+                    navigate('/login')
+                }
+                app.message.destroy()
+                app.message.success('重置成功')
+            },200)
+        }
+    }
     return <>
         <div className='flex flex-col items-center w-full'>
             <Divider>
@@ -39,6 +61,11 @@ const SettingCon = (props?:configStoreType)=>{
             </Divider>
             <div className='w-full'>
                 <PageSet configStore={props as configStoreType}/>
+            </div>
+            {/* 操作按钮 */}
+            <div className='flex flex-col w-full pb-4'>
+                <Button className='w-full my-2' onClick={()=>resetConfig()}>重置</Button>
+                <Button onClick={()=>resetConfig(true)}>清空缓存并退出登录</Button>
             </div>
         </div>
     </>

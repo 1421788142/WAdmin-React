@@ -46,7 +46,7 @@ const Header = (props:StoreType) => {
                         <HeaderMenu {...props} /> :
                         <Breadcrumb configStore={configStore} />
                     }
-                    <UserContainer></UserContainer>
+                    <UserContainer userStore={userStore}></UserContainer>
                 </div>
                 {/* <HistoryTag/> */}
             </div>

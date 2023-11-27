@@ -22,8 +22,6 @@ export const useMenu = (option: {
     pathname:string,
     hasOpenKey?:boolean
 }): UseMenuReturnType => {
-    console.log('useMenu')
-
     const { userStore, theme, pathname, hasOpenKey = true, collapsed = true } = option
 
     const onClick = (data:any) => {

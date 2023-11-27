@@ -7,17 +7,16 @@ import { getFlatArr } from '@u/index'
 import config from "../../../public/config";
 
 // 是否需要登录
-const isLogin = (pathName:string,userInfo:userInterface | null)=>{
-    return Boolean( pathName !=='/login' && !userInfo)
+const isLogin = (pathName:string,token:string | null)=>{
+    return Boolean( pathName !=='/login' && !token)
 }
 // 已经登录禁止到登录页
-const prohibitLogin = (pathName:string,userInfo:userInterface | null)=>{
-    return Boolean( pathName === '/login' && userInfo)
+const prohibitLogin = (pathName:string,token:string | null)=>{
+    return Boolean( pathName === '/login' && token)
 }
 
 // 存储递归扁平化后的路由,以防每次递归查询
 let routerList:menuListType[] = []
-
 /**
  * @description 路由守卫组件
  * */
@@ -52,9 +51,9 @@ const AuthRouter = (props: { children: JSX.Element }) => {
     },200)
 
     // 判断是否登录 自己按需替换token还是用户信息做权限
-    if(isLogin(pathname, userInfo)) return <Navigate to="/login" replace />; 
+    if(isLogin(pathname, token)) return <Navigate to="/login" replace />; 
     //以登录状态禁止跳到登录
-    if(prohibitLogin(pathname, userInfo)) return <Navigate to='/' replace /> 
+    if(prohibitLogin(pathname, token)) return <Navigate to='/' replace /> 
      //判断是否有权限访问
     if(currentRouter?.hidden) return <Navigate to="/403" />
     let title = currentRouter?.title ?? VITE_PROJECT_NAME

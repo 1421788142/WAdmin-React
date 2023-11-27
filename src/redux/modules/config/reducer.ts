@@ -2,15 +2,16 @@ import { AnyAction } from "redux";
 import produce from "immer";
 import type { configStoreType } from '@/redux/interface/index'
 import * as types from "@/redux/actionTypes";
+import { menuTypeEnum } from "@/enums/sys";
 
 const configState: configStoreType = {
     language: 'zh',
     theme: {
         weakOrGray: '',
-        primary: "#00B96B",
+        primary: "",
         isDark: false,
         isHappy: false,
-        menuType: 'vertical',
+        menuType: menuTypeEnum.vertical,
         menuFlipColor: false,
         headerFlipColor: false,
     },
@@ -36,6 +37,24 @@ const appConfig = (state: configStoreType = configState, action: AnyAction) =>
                 break;
             case types.SET_COMPONENT:
                 draftState.component = action.component;
+                break;
+            case types.RESET_CONFIG:
+                draftState.component = {
+                    borderRadius: 10,
+                    size: 'middle',
+                    sidebarWidth: 250
+                };
+                draftState.theme = {
+                    weakOrGray: '',
+                    primary: "#1890FF",
+                    isDark: false,
+                    isHappy: false,
+                    menuType: menuTypeEnum.vertical,
+                    menuFlipColor: false,
+                    headerFlipColor: false,
+                }
+                draftState.collapsed = false
+                draftState.language = 'zh'
                 break;
             default:
                 return draftState;

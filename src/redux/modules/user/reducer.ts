@@ -46,6 +46,11 @@ const appConfig = (state: userStoreType = userStore, action: AnyAction) =>
             case types.SET_USER_ROUTER:
                 draftState.userRouterList = action.routerList;
                 break;
+            case types.LOGIN_OUT:
+                draftState.token = '';
+                draftState.userInfo = null;
+                draftState.userRouterList = [];
+                break;
             default:
                 return draftState;
         }

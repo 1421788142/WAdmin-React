@@ -3,9 +3,10 @@ import Login from "@/views/auth/login";
 import Error403 from "@/views/errors/403";
 import Error404 from "@/views/errors/404";
 import { getRouters } from "./utils/autoLoad";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { StoreType } from '@/redux/interface/index'
 import { useSelector } from 'react-redux'
+import { isDraft } from 'immer';
 
 const rootRouter:RouteObject[] = [
 	{
@@ -34,10 +35,10 @@ const rootRouter:RouteObject[] = [
 	},
 ]
 
-const Router = () => {
-	const userStore = useSelector((state:StoreType)=>state.userStore)
-	const routers = useMemo(()=>getRouters(),[userStore.userRouterList])
+const Router = memo(() => {
+	const userRouterList = useSelector((state:StoreType)=>state.userStore.userRouterList)
+	const routers = useMemo(()=>getRouters(),[userRouterList])
 	return useRoutes([...rootRouter, routers])
-};
+})
 
 export default Router

@@ -1,4 +1,4 @@
-import { login, loginInterface, getRouter } from '@/apis/user/index'
+import { login, loginInterface, getRouter, userInfo } from '@/apis/user/index'
 import { App } from 'antd'
 import i18n from "i18next";
 import { store } from '@/redux';
@@ -9,8 +9,14 @@ export const Login = async (query: loginInterface): Promise<{ status:number }> =
     const { code, data } = await login(query)
     if (code === 200) {
         store.dispatch({
+            type: 'SET_TOKEN',
+            token: data.access_token
+        })
+        const { data:userDetail, code:userInfoCode } =  await userInfo()
+        if(userInfoCode !== 200) return { status: code }
+        store.dispatch({
             type: 'UPDATE_USER_INFO',
-            userInfo: data
+            userInfo: userDetail
         })
         await getUserRouter()
         return { status: code }
@@ -20,10 +26,11 @@ export const Login = async (query: loginInterface): Promise<{ status:number }> =
 
 const getUserRouter = async () => {
     const { token, userInfo } = store.getState().userStore
-    if (!userInfo) return
+    if (!userInfo && !token) return
     const { code, data } = await getRouter() //获取用户菜单
     if (code === 200) {
         let dataList = (data?.dataList ?? []).sort((a, b) => a.orderNum - b.orderNum)
+        if(!dataList.length) return
         let menuTree = arrayToTree(dataList)
         await setMenuTree(menuTree)
         store.dispatch({

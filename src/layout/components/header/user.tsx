@@ -1,23 +1,37 @@
 import React from "react"
 import SetLan from "./setupLan"
-import { Avatar, Dropdown } from 'antd'
+import Notice from './notice'
+import FullScreen from './fullscreen'
+import SearchMenu from './searchMenu'
+import { App, Avatar, Dropdown } from 'antd'
 import type { MenuProps } from 'antd';
 import { store } from '@/redux';
 import { useNavigate } from 'react-router-dom'
+import { StoreType  } from '@/redux/interface/index'
+import { useTranslation } from "react-i18next";
 
-const UserContainer:React.FC = () => {
+const UserContainer:React.FC<{userStore:StoreType['userStore']}> = (props) => {
     const navigate = useNavigate()
+    const app = App.useApp()
+    const { t } = useTranslation();
+    const { userStore } = props
+
+    // 退出登录
     const LoginOut = async ()=>{
-        store.dispatch({
-            type:'UPDATE_USER_INFO',
-            userInfo:null
-        })
-        store.dispatch({
-            type:'SET_USER_ROUTER',
-            routerList:[]
-        })
-        navigate('/login')
+        app.modal.confirm({
+            title: t("login.userOutTitle"),
+            content: t("login.userOutDesc"),
+            onOk() {
+                store.dispatch({ type:'LOGIN_OUT' })
+                navigate('/login')
+            },
+            onCancel: () => {
+              app.message.warning(t("login.userOutCancel"));
+            },
+          });
+
     }
+    // 用户下拉菜单
     const dropdownMenu:MenuProps['items'] = [
         {
             key: '1',
@@ -31,14 +45,18 @@ const UserContainer:React.FC = () => {
         }
     ]
 
+
     return (
         <div className="flex items-center">
+            <SearchMenu/>
+            <FullScreen/>
+            <Notice/>
             <SetLan/>
-            <div className="ml-10 mr-4">
+            <div className="ml-5 mr-4">
                 <Dropdown menu={{items:dropdownMenu}} placement="bottomLeft">
                     <div className="cursor-pointer">
-                        <Avatar src='https://cn.vitejs.dev/logo.svg' />
-                        <span className="ml-2">彭于晏</span>
+                        <Avatar src={userStore.userInfo?.avatar} />
+                        <span className="ml-2">{ userStore.userInfo?.nickname }</span>
                     </div>
                 </Dropdown>
             </div>

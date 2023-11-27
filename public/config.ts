@@ -9,11 +9,11 @@ const config = {
     },
     // 开发环境配置
     development: {
-        api: "http://localhost:3000/dev",
+        api: "http://localhost:3000/",
     },
     // 生产环境配置
     production: {
-        api: "http://localhost:3000/pro",
+        api: "http://localhost:3000/",
     }
 }
 

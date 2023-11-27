@@ -46,13 +46,13 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       open: viteEnv.VITE_DEV_OPEN,
       cors: true,
       // 跨域代理配置
-      proxy: {
-        "/api": {
-          target: "https://www.fastmock.site/mock/c5fc1ef03a33b327e9ed7f5130bc17ca/WAdmin", // fastmock
-          changeOrigin: true,
-          rewrite: path => path.replace(/^\/api/, "")
-        }
-      }
+      // proxy: {
+      //   "/api": {
+      //     target: "https://www.fastmock.site/mock/c5fc1ef03a33b327e9ed7f5130bc17ca/WAdmin", // fastmock
+      //     changeOrigin: true,
+      //     rewrite: path => path.replace(/^\/api/, "")
+      //   }
+      // }
     },
     build: {
       outDir: "dist",

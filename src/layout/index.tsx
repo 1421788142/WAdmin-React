@@ -15,7 +15,6 @@ const SettingContainer = memo(()=><Setting />)
 
 const LayoutContent = () => {
     const { Content } = Layout;
-    console.log('layout')
     // 监听redux
     const state = {
         configStore: useSelector((state:StoreType)=>state.configStore),
