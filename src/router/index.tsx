@@ -6,7 +6,6 @@ import { getRouters } from "./utils/autoLoad";
 import { memo, useMemo } from "react";
 import { StoreType } from '@/redux/interface/index'
 import { useSelector } from 'react-redux'
-import { isDraft } from 'immer';
 
 const rootRouter:RouteObject[] = [
 	{

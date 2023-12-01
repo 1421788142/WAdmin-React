@@ -1,11 +1,16 @@
+import { memo } from 'react';
+import Operate from './operate';
+import TagList from './tagList';
+
 const HistoryTag = ()=>{
     return(<>
-        <div className="w-full">
-            <div className="p-1 mx-1 bg-slate-400">
-                <span>HistoryTag</span>
+        <div className="flex items-center justify-between w-full wadmin-react-wrapper history-tag">
+            <div className="flex flex-1 w-[10px]">
+                <TagList/>
             </div>
+            <Operate/>
         </div>
     </>) 
 }
 
-export default HistoryTag
+export default memo(HistoryTag);

@@ -59,6 +59,11 @@ const AuthRouter = (props: { children: JSX.Element }) => {
     let title = currentRouter?.title ?? VITE_PROJECT_NAME
     window.document.title = `${title} - ${VITE_PROJECT_NAME}`
     close()
+    // 设置当前路由信息
+    store.dispatch({
+        type: 'SET_CURRENT_TAG',
+        currentTag: currentRouter
+    })
     return props.children;
 }
 

@@ -26,6 +26,7 @@ export type configStoreType = {
         menuFlipColor: boolean,//菜单主题反转
         headerFlipColor: boolean,//头部主题反转
     },
+    isViewFull: boolean,
     collapsed: boolean,
     component: {
         borderRadius: number,//圆角
@@ -34,7 +35,13 @@ export type configStoreType = {
     }
 }
 
+export type historyTagStoreType = {
+    historyTag: historyTagType[],
+    currentTag: menuListType
+}
+
 export type StoreType = {
     configStore: configStoreType,
     userStore: userStoreType,
+    historyTagStore: historyTagStoreType
 }

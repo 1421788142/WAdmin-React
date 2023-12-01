@@ -39,7 +39,11 @@ const MenuType = (props:{
                             <div className={ 
                                     ['layout-item', menu.mode ,menuType === menu.mode ? 'active' : ''].join(' ') 
                                 }
-                                onClick={()=>chnageConfigType({...props.theme,menuType:menu.mode})}
+                                onClick={()=>{
+                                    if(menuType !== menu.mode){
+                                        chnageConfigType({...props.theme,menuType:menu.mode})
+                                    }
+                                }}
                             >
                                 <div className="layout-menu"></div>
                                 <div className="layout-container">
@@ -62,7 +66,7 @@ const MenuType = (props:{
                     </Tooltip>
                 </div>
                 <Switch
-                    defaultChecked={ menuFlipColor }
+                    checked={ menuFlipColor }
                     onChange={()=>chnageConfigType({...props.theme,menuFlipColor:!menuFlipColor})}
                 />
             </div>
@@ -74,7 +78,7 @@ const MenuType = (props:{
                     </Tooltip>
                 </div>
                 <Switch
-                    defaultChecked={ headerFlipColor }
+                    checked={ headerFlipColor }
                     onChange={()=>chnageConfigType({...props.theme,headerFlipColor:!headerFlipColor})}
                 />
             </div>

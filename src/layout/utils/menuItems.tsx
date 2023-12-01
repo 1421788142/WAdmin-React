@@ -1,16 +1,14 @@
 import type { userStoreType } from '@/redux/interface/index'
 import AntdIcon from '@/components/antdIcon';
 import HasTooltip from '@/layout/components/menu/hasTooltip';
-import type { MenuProps } from 'antd';
 import { iconNameCase } from '@/layout/utils'
 import { AppstoreOutlined } from '@ant-design/icons';
-
-type MenuItem = Required<MenuProps>['items'][number];
+import { ItemType } from 'antd/es/menu/hooks/useItems';
 
 export const menuItems = (
     router: userStoreType['userRouterList']
-):MenuItem[]=>{
-    const getItem = (menu: userStoreType['userRouterList'][number]): MenuItem => {
+):ItemType[]=>{
+    const getItem = (menu: userStoreType['userRouterList'][number]): ItemType => {
         if (menu.children && menu.menuType === 'M') {
             return {
                 key: menu.path,
@@ -31,6 +29,6 @@ export const menuItems = (
         }
     }
 
-    const items: MenuItem[] = router.map(menu => getItem(menu))
+    const items: ItemType[] = router.map(menu => getItem(menu))
     return items
 }

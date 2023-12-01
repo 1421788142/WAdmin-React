@@ -3,14 +3,19 @@ import { Breadcrumb } from 'antd';
 import { setBreadCrumbs } from '@/layout/utils'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { ConfigProvider, theme } from "antd";
-import { configStoreType } from '@/redux/interface/index'
+import { StoreType, configStoreType } from '@/redux/interface/index'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import { store } from '@/redux'
+import { connect } from 'react-redux';
 
-const BreadcrumbCon = (props:{
-    configStore:configStoreType
-})=>{
-    const { theme:sysTheme, collapsed } = props.configStore
+type ThemeType = configStoreType['theme']
+
+const BreadcrumbCon:React.FC<Partial<{
+    collapsed:configStoreType['collapsed'],
+    headerFlipColor:ThemeType['headerFlipColor'],
+    isDark:ThemeType['isDark'],
+}>> = (props)=>{
+    const { isDark, headerFlipColor, collapsed } = props
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -30,7 +35,7 @@ const BreadcrumbCon = (props:{
           value[i]?.children?.length && getPath(value[i]?.children || []);
         }
         return path;
-      };
+    };
 
     const crumbsList = useMemo(()=>{
         return setBreadCrumbs(pathname,true,callback)
@@ -40,7 +45,7 @@ const BreadcrumbCon = (props:{
         <div>
             <ConfigProvider
                 theme={{
-                    algorithm: sysTheme.isDark || sysTheme.headerFlipColor ? theme.darkAlgorithm : theme.defaultAlgorithm
+                    algorithm: isDark || headerFlipColor ? theme.darkAlgorithm : theme.defaultAlgorithm
                 }}
             >
                 <div className='flex items-center'>
@@ -59,4 +64,10 @@ const BreadcrumbCon = (props:{
     )
 }
 
-export default memo(BreadcrumbCon)
+const mapStateToProps = (state: StoreType) => ({
+    headerFlipColor:state.configStore.theme.headerFlipColor,
+    isDark:state.configStore.theme.isDark,
+    collapsed:state.configStore.collapsed,
+})
+
+export default connect(mapStateToProps)(BreadcrumbCon)

@@ -1,49 +1,41 @@
-import React, { memo, useMemo } from 'react'
-import Menus from '../menu'
-import { useMenu } from '@/hooks/useMenu';
-import { useNavigate, useLocation } from 'react-router-dom'
-import { StoreType } from '@/redux/interface/index'
+import React, { useMemo } from 'react'
+import { StoreType, configStoreType, userStoreType } from '@/redux/interface/index'
 import Logo from '../logo'
-import { menuItems } from '@/layout/utils/menuItems';
+import { connect } from 'react-redux';
+import Wrapper from './wrapper'
+import Menus from './menus'
 
-const Sidebar = (props:StoreType) => {
-    const { configStore, userStore } = props
+type ThemeType = configStoreType['theme']
 
-    const { component, theme, collapsed } = configStore
-
-    const wrapStyle = useMemo<React.CSSProperties>(()=>{
-        return {
-            width: `${collapsed ? 70 : component.sidebarWidth}px`,
-            backgroundColor:(theme.menuFlipColor && !theme.isDark) ? '#001529' : theme.isDark ? '#141414' : '#fff',
-        }
-    },[
-        component.sidebarWidth,
-        theme.menuFlipColor,
-        theme.isDark,
-        collapsed
-    ])
-
-    const navigate = useNavigate();
-    const { pathname } = useLocation();
+const Sidebar:React.FC<Partial<{
+    menuType:ThemeType['menuType'],
+    collapsed:configStoreType['collapsed'],
+    userRouterList:userStoreType['userRouterList']
+}>> = (props) => {
+    const {
+        menuType,
+        collapsed,
+    } = props
+    
+    const menuBoxClass = useMemo(()=>{
+        return ['flex-1 overflow-auto menu-box',(collapsed ? 'menu-box-collapsed' : '')].join(' ')
+    },[collapsed])
 
     return (
-        <div style={wrapStyle} className='flex flex-col border-0 border-r-[1px] border-[#e8e8e8] dark:border-[#424242] border-solid'>
-            { configStore.theme.menuType === 'vertical' && <Logo configStore={configStore} /> } 
-            <div className='flex-1 overflow-auto menu-box'>
-                <Menus 
-                    items={menuItems(userStore.userRouterList)}
-                    {...useMenu({
-                        userStore,
-                        theme:configStore.theme,
-                        navigate,
-                        pathname,
-                        collapsed
-                    })}
-                    inlineCollapsed={collapsed}
-                />
+        <Wrapper>
+            <div>
+                { menuType === 'vertical' && <Logo /> }
+                <div className={menuBoxClass}>
+                    <Menus/>
+                </div>
             </div>
-        </div>
+        </Wrapper>
     )
 }
 
-export default memo(Sidebar);
+const mapStateToProps = (state: StoreType) => ({
+    collapsed:state.configStore.collapsed,
+    menuType:state.configStore.theme.menuType,
+});
+
+export default connect(mapStateToProps)(Sidebar);

@@ -25,3 +25,11 @@ export const SET_COMPONENT = "SET_COMPONENT";
 export const SET_COLLAPSED = "SET_COLLAPSED";
 // 重置配置
 export const RESET_CONFIG = "RESET_CONFIG";
+// 更新视图全屏
+export const SET_VIEW_FULL = "SET_VIEW_FULL";
+
+// 历史标签
+// 路由变化设置
+export const SET_TAG = 'SET_TAG'
+// 设置当前路由信息 以便做历史标签和按钮权限
+export const SET_CURRENT_TAG = 'SET_CURRENT_TAG'

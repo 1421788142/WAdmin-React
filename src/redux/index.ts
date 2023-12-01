@@ -6,13 +6,15 @@ import reduxThunk from "redux-thunk";
 import reduxPromise from "redux-promise";
 import configStore from "./modules/config/reducer";
 import userStore from "./modules/user/reducer";
+import historyTagStore from "./modules/historyTag/reducer";
 import { StoreType } from '@/redux/interface/index'
 import * as types from './actionTypes'
 
 // 创建reducer(拆分reducer)
 const reducer = combineReducers({
     configStore,
-    userStore
+    userStore,
+    historyTagStore
 });
 
 // redux 持久化配置

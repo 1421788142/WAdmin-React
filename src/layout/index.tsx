@@ -5,32 +5,33 @@ import Header from './components/header';
 import Sidebar from './components/sidebar';
 import SidebarColumns from './components/sidebar/columns';
 import Setting from './components/setting';
-import { useSelector } from 'react-redux';
-import { StoreType } from '@/redux/interface/index'
+import { connect } from 'react-redux';
+import { StoreType, configStoreType } from '@/redux/interface/index'
 import { memo } from "react";
+import HistoryTag from "./components/tag";
 
 // 将不需要根据配置更新的组件缓存状态
 const MainContainer = memo(() => <Main />)
 const SettingContainer = memo(()=><Setting />)
 
-const LayoutContent = () => {
+const LayoutContent:React.FC<{
+    menuType:configStoreType['theme']['menuType']
+    isViewFull:configStoreType['isViewFull']
+}> = (props) => {
+    const { menuType, isViewFull } = props
     const { Content } = Layout;
-    // 监听redux
-    const state = {
-        configStore: useSelector((state:StoreType)=>state.configStore),
-        userStore:useSelector((state:StoreType)=>state.userStore)
-    }
 
     return (
         <section>
             <div className="w-container">
-                { state.configStore.theme.menuType === 'vertical' && <Sidebar {...state}></Sidebar> }
-                { state.configStore.theme.menuType === 'columns' &&  <SidebarColumns {...state}></SidebarColumns>}
+                { menuType === 'vertical' && !isViewFull && <Sidebar></Sidebar> }
+                { menuType === 'columns' && !isViewFull &&  <SidebarColumns></SidebarColumns>}
                 <div className="w-container-content">
-                    <Header {...state}></Header>
+                    { !isViewFull && <Header></Header>}
                     <Content className="w-container-main">
-                        {state.configStore.theme.menuType === 'classic' && <Sidebar {...state}></Sidebar>}
+                        {menuType === 'classic' && !isViewFull && <Sidebar></Sidebar> }
                         <div className="w-container-main-content">
+                            { !isViewFull && <HistoryTag/> }
                             <MainContainer />
                         </div>
                     </Content>
@@ -42,4 +43,8 @@ const LayoutContent = () => {
     )
 }
 
-export default LayoutContent
+const mapStateToProps = (state: StoreType) => ({
+    menuType:state.configStore.theme.menuType,
+    isViewFull:state.configStore.isViewFull
+});
+export default connect(mapStateToProps)(LayoutContent);

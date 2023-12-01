@@ -21,6 +21,11 @@ export const setCollapsed = (collapsed: configStoreType['collapsed']) => ({
     collapsed
 })
 
+export const setViewFull = (isViewFull: configStoreType['isViewFull']) => ({
+    type: types.SET_VIEW_FULL,
+    isViewFull
+})
+
 export const resetConfig = () => ({
     type: types.RESET_CONFIG
 })

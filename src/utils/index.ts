@@ -130,8 +130,8 @@ export function timeState() {
  */
 export function debounce(fn: any, delay: number = 300) {
     let timerId: any;
-    return function () {
-        clearTimeout(timerId)
-        timerId = setTimeout(() => fn(), delay)
+    return function (...args: any) {
+        timerId && clearTimeout(timerId)
+        timerId = setTimeout(() => fn(...args), delay)
     }
 }

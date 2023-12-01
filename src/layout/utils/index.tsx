@@ -2,6 +2,7 @@ import { store } from "@/redux";
 import AntdIcon from '@/components/antdIcon';
 import HasTooltip from '@/layout/components/menu/hasTooltip';
 import config from '../../../public/config'
+import { customIconType } from '@com/antdIcon/index'
 
 /**
  * @description 查询出打开菜单
@@ -49,9 +50,9 @@ export function findFn<T>(key: Function, filterKey: Function, returnKey: Functio
  * @param iconName (aa-bb-cc)
  * @return iconNameCase (AaBbCc)
  */
-export const iconNameCase = (iconName: string) => {
+export const iconNameCase = (iconName: string):customIconType['component'] => {
     let iconNameList = iconName.split('-').map((item: string) => item.charAt(0).toUpperCase() + item.slice(1))
-    return iconNameList.join('')
+    return iconNameList.join('') as customIconType['component']
 }
 
 export const getFirstMenu = (userRouterList: menuListType[]) => {
@@ -111,4 +112,36 @@ export const setBreadCrumbs = (fullPath: string, hasLoad = false, callback:Funct
         } as any,
         ...breadList
     ]
+}
+
+/**
+ * @description 根据关键字搜索菜单
+ * @param {string} key 
+ */
+export function screenPageList<T>(key: string): T[][] {
+    const userRouterList = store.getState().userStore.userRouterList
+    let menuList: T[][] = [];
+    let walker = (menuItem: menuListType[], key: string) => {
+        menuItem.forEach(item => {
+            if ((item.meta.title.search(key) != -1 || item.path.search(key) != -1) && item.component !== 'Layout' && !item.hidden) {
+                let menu = findFn<T>(
+                    () => item.path,
+                    (val: menuListType) => val.path,
+                    (val: menuListType) => {
+                        return {
+                            path: val.path,
+                            title: val.meta.title,
+                            icon: val.icon
+                        }
+                    }
+                )
+                menuList.push(menu)
+            }
+            item.children && item.children.length > 0
+                ? walker(item.children, key)
+                : ""
+        })
+    }
+    walker(userRouterList, key);
+    return menuList
 }

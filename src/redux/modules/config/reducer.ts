@@ -4,11 +4,11 @@ import type { configStoreType } from '@/redux/interface/index'
 import * as types from "@/redux/actionTypes";
 import { menuTypeEnum } from "@/enums/sys";
 
-const configState: configStoreType = {
+const stateMeta = {
     language: 'zh',
     theme: {
         weakOrGray: '',
-        primary: "",
+        primary: "#1890FF",
         isDark: false,
         isHappy: false,
         menuType: menuTypeEnum.vertical,
@@ -16,14 +16,17 @@ const configState: configStoreType = {
         headerFlipColor: false,
     },
     collapsed: false,
+    isViewFull: false,
     component: {
         borderRadius: 10,
         size: 'middle',
         sidebarWidth: 250
     }
-}
+} as configStoreType
 
-const appConfig = (state: configStoreType = configState, action: AnyAction) =>
+const configState: configStoreType = Object.assign({}, stateMeta)
+
+const configStore = (state: configStoreType = configState, action: AnyAction) =>
     produce(state, draftState => {
         switch (action.type) {
             case types.SET_LANGUAGE:
@@ -38,27 +41,19 @@ const appConfig = (state: configStoreType = configState, action: AnyAction) =>
             case types.SET_COMPONENT:
                 draftState.component = action.component;
                 break;
+            case types.SET_VIEW_FULL:
+                draftState.isViewFull = action.isViewFull;
+                break;
             case types.RESET_CONFIG:
-                draftState.component = {
-                    borderRadius: 10,
-                    size: 'middle',
-                    sidebarWidth: 250
-                };
-                draftState.theme = {
-                    weakOrGray: '',
-                    primary: "#1890FF",
-                    isDark: false,
-                    isHappy: false,
-                    menuType: menuTypeEnum.vertical,
-                    menuFlipColor: false,
-                    headerFlipColor: false,
-                }
-                draftState.collapsed = false
-                draftState.language = 'zh'
+                draftState.language = stateMeta.language
+                draftState.theme = stateMeta.theme
+                draftState.collapsed = stateMeta.collapsed
+                draftState.component = stateMeta.component
+                draftState.isViewFull = stateMeta.isViewFull
                 break;
             default:
                 return draftState;
         }
     })
 
-export default appConfig;
+export default configStore;

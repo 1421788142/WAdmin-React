@@ -2,13 +2,19 @@ import { Switch } from 'antd'
 import SvgIcon from '@com/svgIcon'
 import { store } from '@/redux/index'
 import { memo } from 'react'
+import { connect } from 'react-redux'
+import { StoreType, configStoreType } from '@/redux/interface'
 
-const Theme = ()=>{
+const Theme:React.FC<{
+    theme:configStoreType['theme']
+}> = (props)=>{
+    const { theme } = props
+
     const chnageDark = (val:boolean)=>{
         store.dispatch({
             type:'SET_THEME',
             theme:{
-                ...store.getState().configStore.theme,
+                ...theme,
                 isDark:val
             }
         })
@@ -17,7 +23,7 @@ const Theme = ()=>{
     return (
         <div className='theme'>
             <Switch
-                defaultChecked={ store.getState().configStore.theme.isDark }
+                checked={ theme.isDark }
                 checkedChildren={<SvgIcon name='sun' iconStyle={{...iconStyle,height:25}} />}
                 unCheckedChildren={<SvgIcon name='moon' iconStyle={{...iconStyle,height:25}} />}
                 onChange={chnageDark} 
@@ -26,4 +32,8 @@ const Theme = ()=>{
     )
 }
 
-export default memo(Theme)
+
+const mapStateToProps = (state: StoreType) => ({
+    theme:state.configStore.theme
+})
+export default connect(mapStateToProps)(memo(Theme))

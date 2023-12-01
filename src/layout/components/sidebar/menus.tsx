@@ -1,49 +1,60 @@
-import Menus from '../menu'
 import { menuItems } from '@/layout/utils/menuItems';
-import { StoreType, configStoreType, userStoreType } from '@/redux/interface/index'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { StoreType, configStoreType, userStoreType } from '@/redux/interface';
+import { useEffect, useMemo, useState } from 'react'
 import { connect } from 'react-redux';
-import { useEffect, useMemo, useState } from 'react';
+import Menus from '@/layout/components/menu/index'
 import { MenuProps } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom'
 import config from '../../../../public/config';
+import { openKey } from '@/layout/utils/index'
 
 type ThemeType = configStoreType['theme']
 
-const HeaderMenu:React.FC<Partial<{
+const MenuRender:React.FC<{
     menuList:userStoreType['userRouterList']
+    collapsed:configStoreType['collapsed'],
+    menuType:ThemeType['menuType'],
     headerFlipColor:ThemeType['headerFlipColor'],
+    menuFlipColor:ThemeType['menuFlipColor'],
     isDark:ThemeType['isDark'],
-}>> = (props) => {
+}> = (props)=>{
     const {
         menuList,
+        collapsed,
+        menuType,
         headerFlipColor,
+        menuFlipColor,
         isDark,
     } = props
+
+    const { pathname } = useLocation()
     const navigate = useNavigate();
-    const { pathname } = useLocation();
     const [ openKeys, setOpenKeys ] = useState<Array<string>>([])
     const [ selectedKeys, setSelectedKeys ] = useState<Array<string>>([])
 
     // 菜单主题
     const menuTheme = useMemo(()=>{
-        return isDark || headerFlipColor ? 'dark' : 'light'
-    },[headerFlipColor, isDark])
+        return menuType === 'transverse' && headerFlipColor ? 'dark' :
+        (isDark || menuType === 'transverse') ?
+        'light' : menuFlipColor ? 'dark' :  'light'
+    },[headerFlipColor,menuFlipColor, menuType, isDark])
 
+    // 默认只展开一个父级菜单 保存一级目录layouy
+    const rootSubmenuKeys = useMemo(()=>{
+        return menuList.map(x => x.component === 'Layout' && x.path)
+    },[menuList]) 
+
+    useEffect(()=>{
+        setSelectedKeys([pathname === '/' ? config.homePath : pathname])
+        if(collapsed) return
+        setOpenKeys(openKey(pathname))
+    },[pathname,collapsed])
 
     // 菜单点击
     const onClick = (data:any)=>{
         if(pathname === data.key) return
         navigate(data.key, { replace: true })
     }
-
-    // 默认只展开一个父级菜单 保存一级目录layouy
-    const rootSubmenuKeys = useMemo(()=>{
-        return (menuList as userStoreType['userRouterList']).map(x => x.component === 'Layout' && x.path)
-    },[menuList]) 
-
-    useEffect(()=>{
-        setSelectedKeys([pathname === '/' ? config.homePath : pathname])
-    },[pathname])
 
     // 菜单点击
     const onOpenChange = (openKey: string[])=>{
@@ -54,34 +65,35 @@ const HeaderMenu:React.FC<Partial<{
             setOpenKeys(latestOpenKey ? [latestOpenKey] : [])
         }
     }
-    
+
     // 菜单配置
     const menuConfig = useMemo(()=>{
         return {
-            mode:'horizontal',
+            mode:'inline',
             theme:menuTheme,
             selectedKeys,
             openKeys,
             onClick,
             onOpenChange,
+            inlineCollapsed:collapsed
         } as MenuProps
-    },[openKeys,menuTheme,selectedKeys,openKeys])
+    },[openKeys,menuTheme,selectedKeys,openKeys,collapsed])
 
-    return <>
-        <div className='flex-1 w-[10px] bg-slate-300'>
-            <Menus
-                style={{ justifyContent:'center', background:isDark ? '#141414' : '' }}
-                items={menuItems(menuList as userStoreType['userRouterList'])}
-                {...menuConfig}
-            />
-        </div>
-    </>
+    return (<>
+        <Menus
+            items={menuItems(menuList)}
+            {...menuConfig}
+        />
+    </>)
 }
 
 const mapStateToProps = (state: StoreType) => ({
     menuList:state.userStore.userRouterList,
+    collapsed:state.configStore.collapsed,
+    menuType:state.configStore.theme.menuType,
     isDark:state.configStore.theme.isDark,
+    menuFlipColor:state.configStore.theme.menuFlipColor,
     headerFlipColor:state.configStore.theme.headerFlipColor,
-})
+});
 
-export default connect(mapStateToProps)(HeaderMenu)
+export default connect(mapStateToProps)(MenuRender);

@@ -3,7 +3,7 @@ import produce from "immer";
 import type { userStoreType } from '@/redux/interface/index'
 import * as types from "@/redux/actionTypes";
 
-const userStore: userStoreType = {
+const userState: userStoreType = {
     token: '', //项目暂时没有启用token模式 可以按需使用
     requestRecord: [],//保存请求的接口
     userRouterList: [],
@@ -13,7 +13,7 @@ const userStore: userStoreType = {
     currentPage: 1
 }
 
-const appConfig = (state: userStoreType = userStore, action: AnyAction) =>
+const userStore = (state: userStoreType = userState, action: AnyAction) =>
     produce(state, draftState => {
         switch (action.type) {
             case types.UPDATE_USER_INFO:
@@ -55,4 +55,4 @@ const appConfig = (state: userStoreType = userStore, action: AnyAction) =>
                 return draftState;
         }
     })
-export default appConfig;
+export default userStore;

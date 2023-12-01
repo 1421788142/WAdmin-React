@@ -1,57 +1,71 @@
 import UserContainer from "./user"
-import HistoryTag from '../tag/index'
 import Breadcrumb from './breadcrumb'
 import HeaderMenu from './menu'
-import { StoreType } from '@/redux/interface/index'
+import { StoreType, configStoreType } from '@/redux/interface/index'
 import Logo from '../logo'
 import { useMemo } from 'react'
+import { connect } from "react-redux"
 
+type ThemeType = configStoreType['theme']
 
-const Header = (props:StoreType) => {
-    const { configStore, userStore } = props
-
-    const { component, theme, collapsed } = configStore
+const Header:React.FC<Partial<{
+    sidebarWidth:configStoreType['component']['sidebarWidth'],
+    collapsed:configStoreType['collapsed'],
+    menuType:ThemeType['menuType'],
+    headerFlipColor:ThemeType['headerFlipColor'],
+    menuFlipColor:ThemeType['menuFlipColor'],
+    isDark:ThemeType['isDark'],
+}>> = (props) => {
+    const { sidebarWidth, menuType, headerFlipColor, menuFlipColor, isDark, collapsed } = props
 
     const logoStyle = useMemo<React.CSSProperties>(()=>{
         return {
-            width: `${collapsed && theme.menuType !== 'transverse' ? 70 : component.sidebarWidth}px`,
+            width: `${collapsed && menuType !== 'transverse' ? 70 : sidebarWidth}px`,
             height: '50px',
         }
     },[
-        component.sidebarWidth,
+        sidebarWidth,
         collapsed,
-        theme.menuType
+        menuType
     ])
 
     const classNames = useMemo(()=>{
         const name = [
             'flex content-bg border-0 border-b-[1px] border-[#e8e8e8] dark:border-[#424242] border-solid',
-            (!theme.isDark && theme.headerFlipColor && '!bg-[#001529] text-white border-[#424242]'),
+            (!isDark && headerFlipColor && '!bg-[#001529] text-white border-[#424242]'),
+            ( (menuFlipColor && headerFlipColor) && '!border-[#424242]'),
         ]
         return name.join(' ')
-    },[theme.headerFlipColor,theme.isDark])
+    },[headerFlipColor,isDark,menuFlipColor])
 
     return (
         <div className={classNames}>
             { 
-                ['classic','transverse'].includes(configStore.theme.menuType) && 
+                ['classic','transverse'].includes(menuType as ThemeType['menuType']) && 
                 <div style={logoStyle}>
-                    <Logo configStore={configStore} /> 
+                    <Logo /> 
                 </div>
             } 
             <div className="flex-1">
                 <div className="h-[50px] flex-1 flex justify-between items-center">
                     {
-                        configStore.theme.menuType === 'transverse' ? 
-                        <HeaderMenu {...props} /> :
-                        <Breadcrumb configStore={configStore} />
+                        menuType === 'transverse' ? 
+                        <HeaderMenu /> : <Breadcrumb />
                     }
-                    <UserContainer userStore={userStore}></UserContainer>
+                    <UserContainer></UserContainer>
                 </div>
-                {/* <HistoryTag/> */}
             </div>
         </div>
     )
 }
 
-export default Header
+const mapStateToProps = (state: StoreType) => ({
+    sidebarWidth:state.configStore.component.sidebarWidth,
+    collapsed:state.configStore.collapsed,
+    menuType:state.configStore.theme.menuType,
+    headerFlipColor:state.configStore.theme.headerFlipColor,
+    menuFlipColor:state.configStore.theme.menuFlipColor,
+    isDark:state.configStore.theme.isDark,
+})
+
+export default connect(mapStateToProps)(Header)

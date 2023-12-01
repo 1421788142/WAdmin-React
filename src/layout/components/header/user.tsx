@@ -9,12 +9,13 @@ import { store } from '@/redux';
 import { useNavigate } from 'react-router-dom'
 import { StoreType  } from '@/redux/interface/index'
 import { useTranslation } from "react-i18next";
+import { connect } from "react-redux"
 
-const UserContainer:React.FC<{userStore:StoreType['userStore']}> = (props) => {
+const UserContainer:React.FC<{userInfo:StoreType['userStore']['userInfo']}> = (props) => {
     const navigate = useNavigate()
     const app = App.useApp()
     const { t } = useTranslation();
-    const { userStore } = props
+    const { userInfo } = props
 
     // 退出登录
     const LoginOut = async ()=>{
@@ -55,8 +56,8 @@ const UserContainer:React.FC<{userStore:StoreType['userStore']}> = (props) => {
             <div className="ml-5 mr-4">
                 <Dropdown menu={{items:dropdownMenu}} placement="bottomLeft">
                     <div className="cursor-pointer">
-                        <Avatar src={userStore.userInfo?.avatar} />
-                        <span className="ml-2">{ userStore.userInfo?.nickname }</span>
+                        <Avatar src={userInfo?.avatar} />
+                        <span className="ml-2">{ userInfo?.nickname }</span>
                     </div>
                 </Dropdown>
             </div>
@@ -64,4 +65,8 @@ const UserContainer:React.FC<{userStore:StoreType['userStore']}> = (props) => {
     )
 }
 
-export default UserContainer
+const mapStateToProps = (state: StoreType) => ({
+    userInfo:state.userStore.userInfo
+})
+
+export default connect(mapStateToProps)(UserContainer)
