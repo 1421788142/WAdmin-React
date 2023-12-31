@@ -1,11 +1,11 @@
 export default {
-    notEmpty: '{text} cannot be empty',
+    notEmpty: '{{text}} cannot be empty',
     template: 'template',
     summary: 'summary',
     radio: 'radio',
     multipleChoice: 'multiple choice',
     department: 'department',
-    pleaseEnter: 'please enter {text}',
+    pleaseEnter: 'please enter {{text}}',
     content: 'content',
     key: 'keywords',
     video: 'video',

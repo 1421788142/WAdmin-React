@@ -1,4 +1,4 @@
-declare interface historyTagType {
+declare interface HistoryTagType {
     title: string,
     path: string,
     parentPath?: string,

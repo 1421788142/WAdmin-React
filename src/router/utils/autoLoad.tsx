@@ -7,7 +7,7 @@ import type { userStoreType } from '@/redux/interface/index'
 import _ from 'loadsh'
 import { store } from "@/redux";
 
-type AutoRouter = RouteObject & menuListType[]
+type AutoRouter = RouteObject & MenuListType[]
 type menuType = userStoreType['userRouterList']
 const getRouters = () => {
     let menuList = _.cloneDeep(store.getState().userStore.userRouterList) as menuType

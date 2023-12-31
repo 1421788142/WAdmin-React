@@ -6,7 +6,7 @@ export const setTag = (historyTag: historyTagStoreType['historyTag']) => ({
     historyTag
 })
 
-export const setCurrentTag = (currentTag: historyTagStoreType['currentTag']) => ({
-    type: types.SET_CURRENT_TAG,
-    currentTag
+export const seViewStatus = (viewStatus: historyTagStoreType['viewStatus']) => ({
+    type: types.SET_VIEW_STATUS,
+    viewStatus
 })

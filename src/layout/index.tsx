@@ -20,7 +20,6 @@ const LayoutContent:React.FC<{
 }> = (props) => {
     const { menuType, isViewFull } = props
     const { Content } = Layout;
-
     return (
         <section>
             <div className="w-container">

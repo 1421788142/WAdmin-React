@@ -10,7 +10,9 @@ export default function setupPlugins(env: ViteEnv, isBuild: boolean) {
         createHtmlPlugin({
             inject: {
                 data: {
-                    title: env.VITE_PROJECT_NAME,
+                    title: env.VITE_PROJECT_NAME, //项目名称
+                    logo: `<img src="/src/assets/image/logo.png" class="app-loading-logo" alt="Logo" />`, //项目logo
+                    favicon: `<link rel="icon" type="image/svg+xml" href="./src/assets/image/logo.png " />`, //网页图标
                 }
             }
         }),

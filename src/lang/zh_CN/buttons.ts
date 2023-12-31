@@ -1,6 +1,6 @@
 export default {
-    upload: '上传{type}',
-    download: '下载{type}',
+    upload: '上传{{type}}',
+    download: '下载{{type}}',
     inquire: '查询',
     reset: '重置',
     add: '新增',

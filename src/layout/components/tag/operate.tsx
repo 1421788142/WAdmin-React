@@ -1,11 +1,12 @@
 import { connect } from "react-redux"
-import { SyncOutlined, ExpandOutlined, MenuOutlined } from '@ant-design/icons'
+import { ExpandOutlined, MenuOutlined } from '@ant-design/icons'
 import { useMemo } from "react"
 import { store } from "@/redux"
 import { StoreType } from "@/redux/interface"
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTag } from './util';
 import TagMenu from './tagMenu';
+import RefreshView from "../refreshView"
 
 const OperateMenu:React.FC<{
     tagList: StoreType['historyTagStore']['historyTag'],
@@ -33,12 +34,12 @@ const OperateMenu:React.FC<{
         })
     }
 
-    const animate = useMemo(()=>{
-        return ''// 'animate-spin'
-    },[])
-
     return <div className="flex justify-end text-xl min-w-[100px]">
-        <SyncOutlined className={ [iconClass, animate].join(' ') } />
+        <div className={iconClass}>
+            <RefreshView>
+                <></>
+            </RefreshView>
+        </div>
         <ExpandOutlined onClick={setViewFull} className={ iconClass } />
         <TagMenu
             trigger={['click']}

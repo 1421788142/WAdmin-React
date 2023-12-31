@@ -10,6 +10,7 @@ import {
     DashOutlined
 } from '@ant-design/icons'
 import { MenuInfo } from 'rc-menu/lib/interface';
+import RefreshView from '../refreshView';
  
 const TagMenu: React.FC<{
     children?: React.ReactNode,
@@ -41,8 +42,7 @@ const TagMenu: React.FC<{
     }, [tagPath, pathname])
     const items: MenuProps['items'] = [
         {
-            label: t('layouts.reload'),
-            icon: <ReloadOutlined/>,
+            label:<RefreshView classNames='mr-2'>{t('layouts.reload')}</RefreshView> ,
             disabled: disabled,
             key: 'refresh'
         },
@@ -88,10 +88,7 @@ const TagMenu: React.FC<{
             closeOther(tagPath)
         } else if(e.key === 'closeAll') {
             closeAll()
-        } else {
-            
         }
-
     }
 
     return <Dropdown

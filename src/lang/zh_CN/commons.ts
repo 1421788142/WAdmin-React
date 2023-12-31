@@ -1,11 +1,11 @@
 export default {
-    notEmpty: '{text}不能为空',
+    notEmpty: '{{text}}不能为空',
     template: '模板',
     summary: '汇总',
     radio: '单选',
     multipleChoice: '多选',
     department: '部门',
-    pleaseEnter: '请输入{text}',
+    pleaseEnter: '请输入{{text}}',
     content: '内容',
     key: '关键字',
     video: '视频',

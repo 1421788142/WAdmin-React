@@ -49,7 +49,6 @@ const userStore = (state: userStoreType = userState, action: AnyAction) =>
             case types.LOGIN_OUT:
                 draftState.token = '';
                 draftState.userInfo = null;
-                draftState.userRouterList = [];
                 break;
             default:
                 return draftState;

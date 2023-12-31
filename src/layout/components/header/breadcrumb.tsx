@@ -20,7 +20,7 @@ const BreadcrumbCon:React.FC<Partial<{
     const { pathname } = useLocation();
 
     // 头部面包屑
-    const callback = (value: menuListType)=>{
+    const callback = (value: MenuListType)=>{
         if (value.component !== "Layout" && pathname !== value.path){
             return navigate(value.path || "" );
         }
@@ -28,7 +28,7 @@ const BreadcrumbCon:React.FC<Partial<{
         pathname !== value.path && navigate(path);
     }
 
-    const getPath = (value: menuListType[]): string => {
+    const getPath = (value: MenuListType[]): string => {
         let path = "";
         for (let i = 0; i < value.length; i++) {
           if (value[i].component !== "Layout") return value[i].path;

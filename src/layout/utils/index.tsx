@@ -1,8 +1,8 @@
 import { store } from "@/redux";
-import AntdIcon from '@/components/antdIcon';
+import AntdIcon from '@/components/AntdIcon';
 import HasTooltip from '@/layout/components/menu/hasTooltip';
 import config from '../../../public/config'
-import { customIconType } from '@com/antdIcon/index'
+import { customIconType } from '@/components/AntdIcon/index'
 
 /**
  * @description 查询出打开菜单
@@ -27,7 +27,7 @@ export function openKey(fullPath: string) {
 export function findFn<T>(key: Function, filterKey: Function, returnKey: Function) {
     let stack: T[] = [];
     let going: boolean = true;
-    let filter = (menuItem: menuListType[], keys: Function) => {
+    let filter = (menuItem: MenuListType[], keys: Function) => {
         menuItem.forEach(item => {
             if (!going) return;
             stack.push(returnKey(item));
@@ -55,7 +55,7 @@ export const iconNameCase = (iconName: string):customIconType['component'] => {
     return iconNameList.join('') as customIconType['component']
 }
 
-export const getFirstMenu = (userRouterList: menuListType[]) => {
+export const getFirstMenu = (userRouterList: MenuListType[]) => {
     return userRouterList.map(menu=>{
         return {
             path:menu.path,
@@ -73,11 +73,11 @@ export const getFirstMenu = (userRouterList: menuListType[]) => {
  * @param {boolean} hasLoad //重载查询出来的数据
  * @param {function} callback //重载查询出来的数据
  * */
-export const setBreadCrumbs = (fullPath: string, hasLoad = false, callback:Function = (menu:menuListType)=> null): menuListType[] => {
-    let breadList = findFn<menuListType>(
+export const setBreadCrumbs = (fullPath: string, hasLoad = false, callback:Function = (menu:MenuListType)=> null): MenuListType[] => {
+    let breadList = findFn<MenuListType>(
         () => (fullPath === '/' ? config.homePath : fullPath),
-        (val: menuListType) => val.path,
-        (val: menuListType) => {
+        (val: MenuListType) => val.path,
+        (val: MenuListType) => {
             if(!hasLoad) return val
             return {
                 title:(<span className="cursor-pointer">
@@ -121,13 +121,13 @@ export const setBreadCrumbs = (fullPath: string, hasLoad = false, callback:Funct
 export function screenPageList<T>(key: string): T[][] {
     const userRouterList = store.getState().userStore.userRouterList
     let menuList: T[][] = [];
-    let walker = (menuItem: menuListType[], key: string) => {
+    let walker = (menuItem: MenuListType[], key: string) => {
         menuItem.forEach(item => {
             if ((item.meta.title.search(key) != -1 || item.path.search(key) != -1) && item.component !== 'Layout' && !item.hidden) {
                 let menu = findFn<T>(
                     () => item.path,
-                    (val: menuListType) => val.path,
-                    (val: menuListType) => {
+                    (val: MenuListType) => val.path,
+                    (val: MenuListType) => {
                         return {
                             path: val.path,
                             title: val.meta.title,

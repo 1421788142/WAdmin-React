@@ -34,7 +34,7 @@ const Columns:React.FC<{
     // 展开
     const [ selectedKeys, setSelectedKeys ] = useState<Array<string>>([])
     // 右侧子菜单
-    const [childrenRoute,setChildrenRoute] = useState<menuListType[]>([])
+    const [childrenRoute,setChildrenRoute] = useState<MenuListType[]>([])
 
     // 左侧目录菜单高亮
     const firstMenuActive = useMemo(()=>{
@@ -76,7 +76,7 @@ const Columns:React.FC<{
                             <div 
                                 className={ 
                                     [
-                                        'text-center cursor-pointer py-2 my-1 border-radius',
+                                        'text-center cursor-pointer py-2 my-1 wadmin-radius',
                                         firstMenuActive === menu.path ? 'columns-active' : ''
                                     ].join(' ') 
                                 }

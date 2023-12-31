@@ -26,7 +26,12 @@ const SettingCon = (props?:configStoreType)=>{
             setTimeout(()=>{
                 if(hasLogin){
                     store.dispatch({ type:'LOGIN_OUT' })
-                    navigate('/login')
+                    setTimeout(()=>{
+                        store.dispatch({
+                            type:'SET_USER_ROUTER',
+                            routerList:[]
+                        })
+                    },200)
                 }
                 app.message.destroy()
                 app.message.success('重置成功')

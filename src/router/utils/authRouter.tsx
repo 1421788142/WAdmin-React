@@ -2,9 +2,8 @@ import { useLocation, Navigate } from "react-router-dom";
 import { Modal } from "antd";
 import { start, close } from '@/plugins/nprogress'
 import { store } from "@/redux";
-import { userInterface } from '@/apis/user/index'
-import { getFlatArr } from '@u/index'
 import config from "../../../public/config";
+import { getCurrentRouter } from "@/utils/currentRouter"
 
 // 是否需要登录
 const isLogin = (pathName:string,token:string | null)=>{
@@ -15,8 +14,6 @@ const prohibitLogin = (pathName:string,token:string | null)=>{
     return Boolean( pathName === '/login' && token)
 }
 
-// 存储递归扁平化后的路由,以防每次递归查询
-let routerList:menuListType[] = []
 /**
  * @description 路由守卫组件
  * */
@@ -27,28 +24,12 @@ const AuthRouter = (props: { children: JSX.Element }) => {
     if(pathname === '/' && userInfo && userRouterList.length) return <Navigate to={config?.homePath || '/'} replace />; 
 
     //跳转路由清除弹窗
-    Modal.destroyAll()
+    setTimeout(()=>{
+        Modal.destroyAll()
+    },100)
     start()
 
-    if(!routerList.length){
-         //过滤掉非页面菜单
-        routerList = [...getFlatArr<menuListType[]>(userRouterList)].filter(x=>x.menuType === "C")
-    }
-
-    // 当前路由
-    const currentRouter = routerList.filter(x=>x.path === pathname)[0]
-
-    //跳转前清空所有正在请求的接口
-    setTimeout(()=>{
-        store.dispatch({
-            type: 'SET_REQUEST_RECORD',
-            record: {
-                cancel: null,
-                url:null,
-                type: 'cancel'
-            }
-        })
-    },200)
+    const currentRouter = getCurrentRouter(userRouterList)
 
     // 判断是否登录 自己按需替换token还是用户信息做权限
     if(isLogin(pathname, token)) return <Navigate to="/login" replace />; 
@@ -59,11 +40,17 @@ const AuthRouter = (props: { children: JSX.Element }) => {
     let title = currentRouter?.title ?? VITE_PROJECT_NAME
     window.document.title = `${title} - ${VITE_PROJECT_NAME}`
     close()
-    // 设置当前路由信息
+
+    //跳转前清空所有正在请求的接口
     store.dispatch({
-        type: 'SET_CURRENT_TAG',
-        currentTag: currentRouter
+        type: 'SET_REQUEST_RECORD',
+        record: {
+            cancel: null,
+            url:null,
+            type: 'cancel'
+        }
     })
+
     return props.children;
 }
 

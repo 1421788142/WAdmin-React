@@ -5,7 +5,7 @@ import * as types from "@/redux/actionTypes";
 
 const historyTagState: historyTagStoreType = {
     historyTag: [],
-    currentTag: {} as menuListType
+    viewStatus: 'ok'
 }
 
 const historyTagStore = (state: historyTagStoreType = historyTagState, action: AnyAction) =>
@@ -13,8 +13,10 @@ const historyTagStore = (state: historyTagStoreType = historyTagState, action: A
         switch (action.type) {
             case types.SET_TAG:
                 draftState.historyTag = action.historyTag
-            case types.SET_CURRENT_TAG:
-                draftState.currentTag = action.currentTag
+                break;
+            case types.SET_VIEW_STATUS:
+                draftState.viewStatus = action.viewStatus
+                break;
             default:
                 return draftState;
         }

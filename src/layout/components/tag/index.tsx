@@ -4,7 +4,7 @@ import TagList from './tagList';
 
 const HistoryTag = ()=>{
     return(<>
-        <div className="flex items-center justify-between w-full wadmin-react-wrapper history-tag">
+        <div className="flex items-center justify-between w-full wadmin-content-bg history-tag">
             <div className="flex flex-1 w-[10px]">
                 <TagList/>
             </div>

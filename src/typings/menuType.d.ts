@@ -1,4 +1,4 @@
-interface menuListType {
+interface MenuListType {
     title: string, //标题
     icon: string, //图标
     menuType: 'M' | 'C' | 'F', //菜单类型(M:目录 C:菜单 F:按钮)
@@ -14,7 +14,7 @@ interface menuListType {
     element?: React.ReactNode, //最终注册组件
     id: number,//id
     pId: number,//父级id
-    children?: menuListType[],
+    children?: MenuListType[],
 }
 interface meta {
     title: string, //标题

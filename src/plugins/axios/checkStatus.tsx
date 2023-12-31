@@ -1,13 +1,12 @@
-import { message, Modal } from 'antd';
+import { Modal } from 'antd';
 import { store } from "@/redux";
 import i18n from "i18next";
 const { t } = i18n
-export const checkStatus = async (
+export const checkStatus = (
     status: number,
     msg: string
 ) => {
     let errMessage = '';
-    // const { loginOut } = store.getState().userStore
     switch (status) {
         case 400:
             errMessage = `${msg}`;
@@ -17,9 +16,15 @@ export const checkStatus = async (
             Modal.info({
                 title: t('login.userExpiresTitle'),
                 content: t('login.userExpiresDesc'),
+                className: 'custom-axios-modal',
                 onOk: async () => {
-                    message.warning('退出登录')
-                    // await loginOut()
+                    store.dispatch({ type:'LOGIN_OUT' })
+                    setTimeout(()=>{
+                        store.dispatch({
+                            type:'SET_USER_ROUTER',
+                            routerList:[]
+                        })
+                    },200)
                 }
             });
             break;
@@ -54,7 +59,5 @@ export const checkStatus = async (
             errMessage = t('sys.errMsg505');
             break;
     }
-    if (errMessage) {
-        message.error(errMessage)
-    }
+    return errMessage
 }

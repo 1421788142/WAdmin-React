@@ -2,11 +2,11 @@ import { Input, Tooltip, Empty, App } from 'antd'
 import { useMemo, useRef, useState } from 'react'
 import { SearchOutlined, EnterOutlined, ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
 import { useTranslation } from "react-i18next";
-import WModal from '@/components/modal/index'
+import WModal from '@/components/Modal/index'
 import './index.less'
 import { screenPageList, iconNameCase } from '@/layout/utils';
-import AntdIcon from '@/components/antdIcon';
-import { customIconType } from '@com/antdIcon/index'
+import AntdIcon from '@/components/AntdIcon';
+import { customIconType } from '@/components/AntdIcon/index'
 import { debounce } from '@/utils/index'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'

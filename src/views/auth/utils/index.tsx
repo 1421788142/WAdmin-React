@@ -1,49 +1,54 @@
 import { login, loginInterface, getRouter, userInfo } from '@/apis/user/index'
-import { App } from 'antd'
-import i18n from "i18next";
 import { store } from '@/redux';
 import { arrayToTree, arrRemoval } from '@/utils/index'
 
 
 export const Login = async (query: loginInterface): Promise<{ status:number }> => {
-    const { code, data } = await login(query)
-    if (code === 200) {
-        store.dispatch({
-            type: 'SET_TOKEN',
-            token: data.access_token
-        })
-        const { data:userDetail, code:userInfoCode } =  await userInfo()
-        if(userInfoCode !== 200) return { status: code }
-        store.dispatch({
-            type: 'UPDATE_USER_INFO',
-            userInfo: userDetail
-        })
-        await getUserRouter()
+    try{
+        const { code, data } = await login(query)
+        if (code === 200) {
+            store.dispatch({
+                type: 'SET_TOKEN',
+                token: data.access_token
+            })
+            const { data:userDetail, code:userInfoCode } =  await userInfo()
+            if(userInfoCode !== 200) return { status: code }
+            store.dispatch({
+                type: 'UPDATE_USER_INFO',
+                userInfo: userDetail
+            })
+            return await getUserRouter()
+        }
         return { status: code }
+    } catch {
+        return { status: 500 }
     }
-    return { status: code }
+
 }
 
-const getUserRouter = async () => {
+const getUserRouter = async ():Promise<{ status:number }> => {
     const { token, userInfo } = store.getState().userStore
-    if (!userInfo && !token) return
+    if (!userInfo || !token) return Promise.reject()
     const { code, data } = await getRouter() //获取用户菜单
     if (code === 200) {
         let dataList = (data?.dataList ?? []).sort((a, b) => a.orderNum - b.orderNum)
-        if(!dataList.length) return
+        if(!dataList.length) return { status: 500 }
         let menuTree = arrayToTree(dataList)
         await setMenuTree(menuTree)
         store.dispatch({
             type: 'SET_USER_ROUTER',
             routerList: menuTree
         })
+        return { status: code }
+    } else {
+        return { status: 500 }
     }
 }
 
 // 取菜单下的按钮
-const setMenuTree = async (menuTree: menuListType[]) => {
+const setMenuTree = async (menuTree: MenuListType[]) => {
     // 取菜单下的权限
-    let getPermission = (data: menuListType) => {
+    let getPermission = (data: MenuListType) => {
         let arr: string[] = []
         data.children && data.children.forEach(item => arr.push(item.perms))
         delete data['children']

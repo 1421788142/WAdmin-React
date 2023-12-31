@@ -25,7 +25,12 @@ const Root = (props?:StoreType['configStore']) => {
   const { language, theme:sysTheme, component } = props as StoreType['configStore'];
   useEffect(()=>{
     useTheme(props as StoreType['configStore'])
-  }),[component,theme]
+  },[
+    component.borderRadius,
+    sysTheme.isDark,
+    sysTheme.primary,
+    sysTheme.weakOrGray
+  ])
   const [i18nLocale, setI18nLocale]  = useState(zhCN)
 
   // 设置 antd 语言国际化

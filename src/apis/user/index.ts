@@ -1,5 +1,5 @@
 import { Http } from "@/plugins/axios";
-import { tableResultData, queryTableInterface } from '@/apis/interface'
+import { tableResultData } from '@/apis/interface'
 
 export interface loginInterface {
     userName: string,
@@ -10,21 +10,12 @@ export interface loginInterface {
 export interface userInterface {
     userName: string,
     email: string,
-    nickname: string,
+    nickName: string,
     userId: number,
+    gender: number,
     avatar: string,
     createdTime: string,
     updateTime: string,
-}
-
-export interface roleInterafce {
-    id: number,
-    roleName: string,
-    memo: string,
-    createdTime: string,
-    status: number,
-    order: number,
-    menuId: string,
 }
 
 export const login = (data: loginInterface) => {
@@ -32,25 +23,16 @@ export const login = (data: loginInterface) => {
         access_token: string
     }>({ url: `auth/login`, data })
 }
-
+//获取用户信息
 export const userInfo = () => {
     return Http.get<userInterface>({ url: `auth/user/info` })
 }
-
-
+//获取用户可用菜单
 export const getRouter = () => {
-    return Http.get<tableResultData<menuListType>>({ url: `auth/user/menu` })
-}
-
-export const getRole = (data: queryTableInterface) => {
-    // return Http.get<tableResultData<roleInterafce>>({ url: `user/role`, data })
-}
-
-export const loginExpired = () => {
-    // return Http.get({ url: `loginExpired` })
+    return Http.get<tableResultData<MenuListType>>({ url: `auth/user/menu` })
 }
 
 export const loginOut = () => {
-    // return Http.post({ url: `login/out` })
+    return Http.post({ url: `auth/login/out` })
 }
 

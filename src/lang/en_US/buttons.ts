@@ -1,6 +1,6 @@
 export default {
-    upload: 'upload {type}',
-    download: 'download {type}',
+    upload: 'upload {{type}}',
+    download: 'download {{type}}',
     inquire: 'Inquire',
     reset: 'reset',
     add: 'Add',

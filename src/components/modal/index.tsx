@@ -2,7 +2,7 @@ import { Modal, ModalProps } from 'antd'
 import { useModalDragMove } from "@/hooks/useModal";
 import { useEffect, useMemo, useState } from 'react';
 import './index.less'
-import { MinusOutlined, CloseOutlined, ExpandOutlined } from '@ant-design/icons'
+import { CloseOutlined, ExpandOutlined } from '@ant-design/icons'
 
 const WModal = (props:{
     children?:React.ReactNode,
@@ -24,7 +24,7 @@ const WModal = (props:{
             closeIcon:false
         }
     },[props.option,hasFull])
-
+    
     useEffect(()=>{
         useModalDragMove({
             open:options.open as boolean,
@@ -43,7 +43,6 @@ const WModal = (props:{
                         <span>{ options.title }</span>
                     </div>
                     <div className='btns'>
-                        { !options.destroyOnClose && <MinusOutlined />}
                         <ExpandOutlined onClick={()=>{ setHasFull(!hasFull) }}/>
                         <CloseOutlined onClick={()=>{ options?.onCancel?.() }} />
                     </div>

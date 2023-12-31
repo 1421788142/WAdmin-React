@@ -1,5 +1,5 @@
 // 通用查询表格的接口
-export interface queryTableInterface {
+export interface tableParamsType {
     pageNum: number,
     pageSize: number,
 }

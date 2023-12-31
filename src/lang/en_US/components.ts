@@ -15,7 +15,7 @@ export default {
     importTitle: 'Importing please wait',
     importDesc: 'If the data is huge, the import will be slow, please be patient!',
     batchImport: 'Batch Import',
-    paginationTotal: 'Total {total} items',
+    paginationTotal: 'Total {{total}} items',
     dataFilter: 'data filtering',
     density: 'density',
     default: 'default',

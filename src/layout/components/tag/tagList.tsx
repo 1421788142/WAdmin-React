@@ -17,6 +17,7 @@ import { StoreType } from '@/redux/interface';
 import { store } from '@/redux';
 import TagMenu from './tagMenu';
 import { useTag } from './util';
+import { getCurrentRouter } from "@/utils/currentRouter"
 
 interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLDivElement> {
   'data-node-key': string;
@@ -69,9 +70,7 @@ const TagList: React.FC<{
   } = useTag({ tagList, navigate, pathname })
 
   // 当前路由信息
-  const currentTag = useMemo(()=>{
-    return store.getState().historyTagStore.currentTag
-  },[store.getState().historyTagStore.currentTag])
+  const currentTag = getCurrentRouter()
 
   const seTag = ()=>{
     //如果是登录或错误页面则不缓存菜单

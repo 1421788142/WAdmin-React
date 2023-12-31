@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { loginInterface } from '@/apis/user'
 import { Form, Button, Input, Spin, Checkbox, App } from 'antd'
-import ImageVerify from '@com/imageVerify'
+import ImageVerify from '@/components/ImageVerify'
 import { loginRules } from '../utils/rules'
 import type { userStoreType } from '@/redux/interface/index'
 import { Login } from "../utils";
@@ -75,7 +75,7 @@ const LoginForm:React.FC = () => {
             <div className="relative cursor-pointer">
               <div
                 onClick={resetImgCode}
-                className="w-[100%] h-[100%] opacity-0 hover:opacity-100 absolute backdrop-invert backdrop-opacity-30 flex justify-center items-center"
+                className="w-[100%] h-[100%] opacity-0 hover:opacity-100 absolute backdrop-invert backdrop-opacity-30 wadmin-radius flex justify-center items-center"
               >
                 <span className="text-white text-md">
                   { t("login.refresh") }

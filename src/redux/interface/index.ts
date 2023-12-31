@@ -7,11 +7,11 @@ export type menuType = 'vertical' | 'classic' | 'transverse' | 'columns'
 // userStore
 export type userStoreType = {
     token: string,
-    requestRecord: { cancel: Function, url: string }[],
-    userRouterList: menuListType[],
-    verifyCode: string,
-    userInfo: userInterface | null;
-    currentPage: pageType
+    requestRecord: { cancel: Function, url: string }[], //请求接口的记录
+    userRouterList: MenuListType[],//用户路由
+    verifyCode: string,//图像验证码
+    userInfo: userInterface | null;//用户信息
+    currentPage: pageType,//登录页面的当前登录页签
 }
 
 // configStore
@@ -34,12 +34,13 @@ export type configStoreType = {
         sidebarWidth: number,//侧栏菜单宽度
     }
 }
-
+// 历史标签
 export type historyTagStoreType = {
-    historyTag: historyTagType[],
-    currentTag: menuListType
+    historyTag: HistoryTagType[],//历史记录
+    viewStatus: 'loading' | 'ok'
 }
 
+// 类型集合
 export type StoreType = {
     configStore: configStoreType,
     userStore: userStoreType,

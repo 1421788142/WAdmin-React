@@ -1,13 +1,124 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./src/assets/image/logo.png " />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <%- favicon %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <style>
+    body,html{
+      padding: 0;
+      margin: 0;
+    }
+    @-webkit-keyframes coffee {
+      100% {
+        opacity: 0;
+        -webkit-transform: translateY(-200%);
+        transform: translateY(-200%);
+      }
+    }
+
+    @keyframes coffee {
+      100% {
+        opacity: 0;
+        -webkit-transform: translateY(-200%);
+        transform: translateY(-200%);
+      }
+    }
+
+    .root-loading-wrapper{
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .root-loading-wrapper .loading-con{
+      text-align: center;
+    }
+    .root-loading-wrapper .loading-con .app-loading-logo{
+      max-width: 200px;
+      max-height: 200px;
+    }
+
+    .root-loading-wrapper .loading-con .title {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .root-loading-wrapper .coffee {
+      background: #5f5f5f;
+      display: grid;
+      border-radius:10px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr;
+      height: 120px;
+      position: relative;
+      width: 80px;
+      padding: 2px;
+      justify-items: center;
+    }
+
+    .root-loading-wrapper .coffee:before {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      content: '';
+      height: 90px;
+      width: 40px;
+      border: 10px solid #5f5f5f;
+      position: absolute;
+      top: 25%;
+      margin-top: -13px;
+      margin-left: -15px;
+      left: 100%;
+      border-radius:0 20px 50px 0;
+    }
+
+    .root-loading-wrapper .coffee div {
+      height: 30px;
+      width: 10px;
+      background: #5f5f5f;
+      opacity: .7;
+      -webkit-animation: coffee 1s infinite;
+      animation: coffee 1s infinite;
+    }
+
+    .root-loading-wrapper .coffee div:nth-child(1) {
+      -webkit-animation-delay: 0.4s;
+      animation-delay: 0.4s;
+    }
+
+    .root-loading-wrapper .coffee div:nth-child(2) {
+      -webkit-animation-delay: 1s;
+      animation-delay: 1s;
+    }
+
+    .root-loading-wrapper .coffee div:nth-child(3) {
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <div class="root-loading-wrapper">
+      <div class="coffee">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="loading-con">
+        <%- logo %>
+        <div class="title"><%= title %></div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

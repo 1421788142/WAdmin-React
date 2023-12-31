@@ -1,44 +1,54 @@
-// import { Http } from "@/plugins/axios";
-import { tableResultData, queryTableInterface } from '@/apis/interface'
+import { Http } from "@/plugins/axios";
+import { tableResultData, tableParamsType } from '@/apis/interface'
+import { AxiosProgressEvent } from "axios";
+import { ContentTypeEnum } from "@/enums/httpEnum";
 
-export interface uploadFile {
-    code: number,
-    data: {
-        name: string,
-        url: string,
-        id: number
-    },
-    message: string
-}
-
-export interface fileInterface {
-    name: string,
-    url: string,
+//图片返回
+export interface fileResType {
+    fileId: string
+    fileName: string
+    filePath: string
+    fileSize: number
+    fileType: string
     id: number
+    keywords: string
+    remark: string
+    userId: string
 }
 
-export const imageUpUrl = '/upload/image'
-export const videoUpUrl = '/upload/video'
+export interface fileParamsType {
+    fileType: string,
+    keywords: string
+}
+
+export const imageUpUrl = '/upload/image' //上传图片
+export const videoUpUrl = '/upload/video' //上传视频
 // 上传图片
-export const uploadImg = (data: any) => {
-    // return Http.post<fileInterface>({ url: imageUpUrl, data })
+export const uploadImg = (data: FormData, onUploadProgress: (value: AxiosProgressEvent) => void = () => { }) => {
+    return Http.post<fileResType>({
+        url: imageUpUrl,
+        data,
+        // 显示进度条
+        onUploadProgress,
+        headers: {
+            'Content-Type': ContentTypeEnum.FORM_URLENCODED
+        }
+    }, { preventDuplication: true })
+}
+// 根据图片id获取图片
+export const getImage = (fileIds: string) => {
+    const data = { fileIds, fileType: 'image' }
+    return Http.get<Array<fileResType>>({
+        url: '/upload/get', data,
+    })
+}
+// 删除图片
+export const deleteImage = (fileIds: string) => {
+    const data = { fileIds, fileType: 'image' }
+    return Http.delete({ url: '/upload/delete', data }, { joinParamsToUrl: true })
 }
 
-// 上传视频
-export const uploadVideo = (data: any) => {
-    // return Http.post<fileInterface>({ url: videoUpUrl, data })
-}
-
-export interface deptListType {
-    title: string,
-    pId: number,
-    id: number
-}
-// 获取部门
-export const deptList = () => {
-    // return Http.get<tableResultData<deptListType>>({ url: '/dept/list' })
-}
-
+// 获取通用参数
 export interface generalParamType {
     name: string,
     color?: string,
@@ -46,8 +56,7 @@ export interface generalParamType {
     valueType: number,
     id: number
 }
-// 获取通用参数
-export const generalParam = (data: queryTableInterface & {
+export const generalParam = (data: tableParamsType & {
     valueType: string
 }) => {
     // return Http.get<tableResultData<generalParamType>>({ url: '/generalParameters', data })

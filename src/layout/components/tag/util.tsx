@@ -35,9 +35,9 @@ export const useTag = ({
         setStoreTag(newList)
         
         if (current === newList.length && path === pathname) {
-            navigate((newList.at(-1) as historyTagType).path)
+            navigate((newList.at(-1) as HistoryTagType).path)
         } else if (path === pathname) {
-            navigate((newList.at(current-1) as historyTagType).path)
+            navigate((newList.at(current-1) as HistoryTagType).path)
         }
     }
 

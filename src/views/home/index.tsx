@@ -1,12 +1,30 @@
-import { DatePicker, Button, Input, message, App } from 'antd';
+import { App } from 'antd';
+import WTable from '@/components/Table/index';
+import { userList, userListType } from '@/apis/system/user';
+import { ColumnsType, UseTableImperative } from '@/components/Table/types/type';
+import React, { useState } from 'react';
 
 const HomePage = ()=>{
-    const app = App.useApp()
+    const [columns, setColumns] = useState<ColumnsType<userListType>[]>([
+        {
+            title:'姓名',
+            dataIndex:'userName',
+            search:true,
+            searchOption:{
+                defaultValue:'admin'
+            }
+        }
+    ])
+
+    const TableRef = React.createRef<UseTableImperative>()
+    
     return(<div>
-                <Button type="primary">Happy Work</Button>
-            <DatePicker/>
-            <Button type='primary' onClick={()=>app.message.info('123')}>按钮</Button>
-            <Input placeholder="Basic usage" />
+                <WTable
+                    onRef={TableRef}
+                    api={userList}
+                    columns={columns}
+                    selection
+                />
     </div>) 
 }
 

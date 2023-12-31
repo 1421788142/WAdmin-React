@@ -24,7 +24,12 @@ const UserContainer:React.FC<{userInfo:StoreType['userStore']['userInfo']}> = (p
             content: t("login.userOutDesc"),
             onOk() {
                 store.dispatch({ type:'LOGIN_OUT' })
-                navigate('/login')
+                setTimeout(()=>{
+                    store.dispatch({
+                        type:'SET_USER_ROUTER',
+                        routerList:[]
+                    })
+                },200)
             },
             onCancel: () => {
               app.message.warning(t("login.userOutCancel"));
@@ -57,7 +62,7 @@ const UserContainer:React.FC<{userInfo:StoreType['userStore']['userInfo']}> = (p
                 <Dropdown menu={{items:dropdownMenu}} placement="bottomLeft">
                     <div className="cursor-pointer">
                         <Avatar src={userInfo?.avatar} />
-                        <span className="ml-2">{ userInfo?.nickname }</span>
+                        <span className="ml-2">{ userInfo?.nickName }</span>
                     </div>
                 </Dropdown>
             </div>

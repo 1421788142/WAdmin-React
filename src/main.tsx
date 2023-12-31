@@ -13,13 +13,13 @@ import "@/styles/tailwind.less";
 import "@/styles/common.less";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  // 让所有子组件拿到store
+  //让所有子组件拿到store
   <Provider store={store}>
     {/* 持久化 */}
     <PersistGate persistor={persistor}>
-      {/* <React.StrictMode> */}
-        <App />
-      {/* </React.StrictMode> */}
+        {/* <React.StrictMode> */}
+          <App />
+        {/* </React.StrictMode> */}
     </PersistGate>
   </Provider>
 );

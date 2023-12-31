@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useImperativeHandle } from 'react';
 import { useUpdateEffect } from '@/hooks/useUpdateEffect'
-import { theme } from 'antd'
 import { useImageVerify } from './useImageVerify';
 
 
@@ -12,9 +11,6 @@ const ImageVerify:React.FC<{
         updateImgCode:Function
     }>
 }> = (props)=>{
-
-    const { getDesignToken } = theme
-    const { borderRadius } = getDesignToken()
 
     const domRef = useRef<HTMLCanvasElement>(null);
     const { imgCode, getImgCode } = useImageVerify();            
@@ -38,7 +34,7 @@ const ImageVerify:React.FC<{
             updateImgCode
         }
     })
-    const wrapperClassName = `w-full h-full rounded-[${borderRadius}px] overflow-hidden`
+    const wrapperClassName = `w-full h-full wadmin-radius overflow-hidden`
     return (
         <div className={wrapperClassName}>
             <canvas

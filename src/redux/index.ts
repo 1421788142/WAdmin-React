@@ -30,7 +30,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // 使用 redux 中间件
 const middleWares = applyMiddleware(reduxThunk, reduxPromise);
 
-// 创建 store
+// 创建 store 持久存储
 const store: Store<StoreType, {
     type: keyof typeof types
     [data: string]: any

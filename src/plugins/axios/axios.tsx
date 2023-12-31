@@ -5,9 +5,9 @@ import { HandlingInterface, setUpConfig } from './utils'
 import { checkStatus } from "./checkStatus";
 import { store } from "@/redux";
 import i18n from "i18next";
+import { ArgsProps } from "antd/es/message";
 
 const { t } = i18n
-
 export default class VAxios {
     private instance: Axios // axios
     private option!: RequestOptions; //axios 配置项
@@ -33,6 +33,25 @@ export default class VAxios {
         return this.Request({ ...config, method: 'DELETE' }, options);
     }
 
+    // 消息提示
+    private showMessage({
+        msg,
+        duration = 2,
+        config = {} as Partial<ArgsProps>
+    }:{
+        msg:string,
+        duration?:number,
+        config?: Partial<ArgsProps>
+    }) {
+        message[config?.type || 'info'](
+            {
+                ...config,
+                content: <span className="flex items-center">{msg}</span>,
+                className: 'custom-message-class',
+            },
+            duration
+        )
+    }
     //将定义的配置类型传ResponseResult传过去
     public async Request<T>(config: AxiosRequestConfig, options: RequestOptions = {}) {
         return new Promise((resolve, reject) => {
@@ -59,27 +78,29 @@ export default class VAxios {
      * @param {function} cancel - 请求中断函数
      * @param {string} errorMessage - 请求中断是需提示的错误信息
      */
-    private handleStopRepeatRequest = (reqList: string[], url: string, cancel: Function, errorMessage: string = ''): void => {
-        for (let i = 0; i < reqList.length; i++) {
-            if (reqList[i] === url && !this.option.preventDuplication) {
-                message.destroy()
-                message.error(t('sys.repeatAxios'))
-                cancel(errorMessage)
+    private handleStopRepeatRequest = (url: string, cancel: Function, errorMessage: string = ''): void => {
+        for (let i = 0; i < this.reqList.length; i++) {
+            if (this.reqList[i] === url && !this.option.preventDuplication) {
+                this.showMessage({
+                    msg: t('sys.repeatAxios'),
+                    config: { type: 'error' }
+                })
+                // cancel(errorMessage)
                 return
             }
         }
-        reqList.push(url)
+        this.reqList.push(url)
     }
     /**
      * 允许某个请求可以继续进行
      * @param {array} reqList 全部请求列表
      * @param {string} url 请求地址
      */
-    private handleAllowRequest = (reqList: string[], url: string): void => {
-        for (let i = 0; i < reqList.length; i++) {
-            if (reqList[i] === url) {
+    private handleAllowRequest = (url: string): void => {
+        for (let i = 0; i < this.reqList.length; i++) {
+            if (this.reqList[i] === url) {
                 // 删除当前请求
-                reqList.splice(i, 1)
+                this.reqList.splice(i, 1)
                 store.dispatch({
                     type: 'SET_REQUEST_RECORD',
                     record: {
@@ -117,7 +138,7 @@ export default class VAxios {
                     })
                 })
                 // 阻止重复请求
-                this.handleStopRepeatRequest(this.reqList, config.url as string, cancel, `${config.url} ${t('sys.repeatAxios')}`)
+                this.handleStopRepeatRequest(config.url as string, cancel, `${config.url} ${t('sys.repeatAxios')}`)
                 // 请求前根据option修改config
                 config = { ...setUpConfig(config, this.option) }
                 return config;
@@ -130,13 +151,19 @@ export default class VAxios {
     // 添加响应拦截器
     private interceptorsResponse() {
         this.instance.interceptors.response.use((res: AxiosResponse<any>) => {
-            this.handleAllowRequest(this.reqList, res.config.url as string)
+            this.handleAllowRequest(res.config.url as string)
             const code = res.data.code || 500
             const msg = res.data.message || res.data.msg || t('sys.errMsg500')
-            checkStatus(code, msg)
+            const errMsg = checkStatus(code, msg)
+            if (errMsg) {
+                this.showMessage({
+                    msg: errMsg,
+                    config: { type: 'error' }
+                })
+            }
             return res
         }, (error) => {
-            this.handleAllowRequest(this.reqList, error.config.url)
+            this.handleAllowRequest(error.config.url)
             error.config.__retryCount = error.config.__retryCount || 0 // 重启机制仅get支持重启
             error.config.__retryCount += 1
             if (error.config.__retryCount > 2) {

@@ -1,5 +1,5 @@
 import type { userStoreType } from '@/redux/interface/index'
-import AntdIcon from '@/components/antdIcon';
+import AntdIcon from '@/components/AntdIcon';
 import HasTooltip from '@/layout/components/menu/hasTooltip';
 import { iconNameCase } from '@/layout/utils'
 import { AppstoreOutlined } from '@ant-design/icons';

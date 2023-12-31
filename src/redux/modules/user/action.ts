@@ -7,7 +7,7 @@ export const updateUserInfo = (userInfo: userStoreType['userInfo']) => ({
 })
 
 export const setToken = (token: userStoreType['token']) => ({
-    type: types.SET_LANGUAGE,
+    type: types.SET_TOKEN,
     token
 })
 

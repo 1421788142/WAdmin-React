@@ -15,7 +15,7 @@ export default {
     importTitle: '正在导入请稍后',
     importDesc: '如果数据庞大会导致导入缓慢哦，请您耐心等待！',
     batchImport: '批量导入',
-    paginationTotal: '总共{total}条数据',
+    paginationTotal: '总共{{total}}条数据',
     dataFilter: '数据筛选',
     density: '密度',
     default: '默认',

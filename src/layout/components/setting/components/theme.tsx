@@ -1,5 +1,5 @@
 import { Switch } from 'antd'
-import SvgIcon from '@com/svgIcon'
+import SvgIcon from '@/components/SvgIcon'
 import { store } from '@/redux/index'
 import { memo } from 'react'
 import { connect } from 'react-redux'

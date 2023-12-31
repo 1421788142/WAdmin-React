@@ -1,5 +1,55 @@
+import { DeepMerge } from "@/typings/utils";
 import i18n from "i18next";
+import { isObject } from "./is";
 const { t } = i18n
+
+
+/**
+ * 选择某个对象中一个或多个key的value
+ *```
+ * const obj = {a:1}
+ * pick(obj,'a') | pick(obj,['a'])=>{a:obj.a}
+ * ```
+ * @param {object} target 需要获取对应key-value的源数据 可以是一个JSON对象
+ * @param {string | string[]} keys 字符串或数组 值为需要获取的key
+ * @param {boolean} [clearNull=false] 是否需要过滤值为空的数据 默认为false
+ * @return {object} object
+ **/
+
+export const pick = <T extends Record<string, any>, K extends keyof T>(
+    target: (object | string) & T,
+    keys: K[],
+    clearNull: boolean = false
+): Pick<T, K> => {
+    const newVlaue = typeof target === 'string' && target.startsWith('{') ? JSON.parse(target) : ({} as T)
+    if (!Array.isArray(keys)) keys = [keys]
+    for (let key of new Set(keys)) {
+        let value = target[key]
+        if (!value && clearNull) continue
+        newVlaue[key] = value
+    }
+    return newVlaue
+}
+
+
+/**
+ * 过滤某个对象中一个或多个key的value
+ *```
+ * const obj = {a:1,b:1,c:2}
+ * pick(obj,'a') | pick(obj,['a'])=>{b:obj.b,c:obj.c}
+ * ```
+ * @param {object} target 需要获取对应key-value的源数据 可以是一个JSON对象
+ * @param {string | string[]} keys 字符串或数组 值为需要获取的key
+ * @return {object} object
+ **/
+
+export const filterPick = <T extends Record<string, any>, K extends keyof T>(
+    target: (object | string) & T,
+    keys: K[]
+): Pick<T, K> => {
+    let objKeys = (Object.keys(target) as K[]).filter((f) => !keys.includes(f)) as (string & K)[]
+    return pick<T, K>(target, objKeys)
+}
 
 /**
  * @description 获取浏览器默认语言
@@ -104,10 +154,86 @@ export function getFlatArr<T extends Array<any>>(arr: T) {
  * @param {Array} target 数据源
  * @return Array
  * */
-export const arrRemoval = (target: string[]) => {
+export const arrRemoval = (target: any[]) => {
     let set = [...new Set(target)];
     return set;
 }
+
+/**
+ * @description 清除所有localStorage
+ * @return void
+ */
+export function localClear() {
+    window.localStorage.clear();
+}
+
+/**
+ * 对传入数据的深克隆
+ * @param {object} target 需要克隆的对象(不可为map、set... 未做适配)
+ * @param {WeakMap} map WeakMap对象
+ * @return {object} 被克隆的target
+ **/
+export const deepClone = function <T extends object>(
+    target: T,
+    map: WeakMap<T, T> = new WeakMap(),
+): T {
+    if (!(target instanceof Object)) return target;
+    if (map.has(target)) return map.get(target) as T;
+    const tempObject: T = Array.isArray(target)
+        ? []
+        : Object.create(Object.getPrototypeOf(target));
+    // 对象保存 为了防止引用自身导致的内存溢出
+    map.set(target, tempObject);
+    Object.keys(target).forEach(key => {
+        const newKey = key as keyof T
+        // 对于函数的单独处理
+        if (target[newKey] instanceof Function)
+            return (tempObject[newKey] = (target[newKey] as Function).bind(tempObject));
+        // @ts-ignore
+        tempObject[newKey] = deepClone(target[newKey], map);
+    });
+    return tempObject;
+};
+
+/**
+ * 对象深合并
+ * @param target 相同属性都会被`合并`到此对象
+ * @param sources 如果多个对象的属性`相同`则会被后面的`覆盖`
+ * @example deepMerge({ a: 1, c: { c: 1, a: [1, 2, 3] } }, { b: 2, c: { a: [2] } })
+ *  // => {a:1,b:2,c:{c:1,a:[2,2,3]}}
+ * @returns 被修改之后的对象
+ */
+export const deepMerge = <T extends object, U extends object>(
+    target: T,
+    ...sources: U[]
+): DeepMerge<T, U> => {
+    if (!isObject(target)) throw new Error("Target it should be an object");
+    sources.forEach(source => {
+        if (!isObject(source)) return;
+        Object.keys(source).forEach(key => {
+            const newTKey = key as keyof T
+            const newUKey = key as keyof U
+            const $value = source[newUKey],
+                _value = target[newTKey];
+            // 源对象的属性值不为对象 ===> 直接覆盖
+            // @ts-ignore
+            if (!isObject(_value)) return (target[newTKey] = $value);
+            // 合并值为不为undefined ===> 直接覆盖
+            // @ts-ignore
+            if ($value !== undefined) return (target[newTKey] = $value);
+            // 源对象属性值为对象 要合并进来的属性值不是对象 ===> 以原属性值为准
+            if (!isObject($value)) return;
+            // 函数 ===> 覆盖
+            // @ts-ignore
+            if (isType(_value) === isType($value) && isType($value) === "function")
+                // @ts-ignore
+                return (target[newTKey] = $value);
+            // 都是对象 ===> 深合并
+            deepMerge(_value, $value);
+        });
+    });
+    return target as any;
+};
 
 
 /**
