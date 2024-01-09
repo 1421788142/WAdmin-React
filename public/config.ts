@@ -4,7 +4,7 @@ const config = {
     // 如果公司需要发布后直接修改配置可用这套方案 此文件跟随打包文件 可直接修改
     base: {
         logo: "https://cn.vitejs.dev/logo.svg",
-        projectName: "Energy Storage",
+        projectName: "wadmin-react",
         homePath: '/home'
     },
     // 开发环境配置
