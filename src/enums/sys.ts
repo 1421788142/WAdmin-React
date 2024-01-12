@@ -1,11 +1,11 @@
-export enum sysModeEnum {
-    phone = 'phone',
-    web = 'web',
+export enum SYS_MODE_ENUM {
+    PHONE = 'phone',
+    WEB = 'web',
 }
 
-export enum menuTypeEnum {
-    vertical = 'vertical',
-    classic = 'classic',
-    transverse = 'transverse',
-    columns = 'columns',
+export enum MENU_TYPE_ENUM {
+    VERTICAL = 'vertical',
+    CLASSIC = 'classic',
+    TRANSVERSE = 'transverse',
+    COLUMNS = 'columns',
 }

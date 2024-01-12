@@ -1,8 +1,8 @@
 import { AnyAction } from "redux";
 import produce from "immer";
 import type { configStoreType } from '@/redux/interface/index'
-import * as types from "@/redux/actionTypes";
-import { menuTypeEnum } from "@/enums/sys";
+import { REDUX_CONFIG_ENUM } from '@/enums/redux'
+import { MENU_TYPE_ENUM } from "@/enums/sys";
 
 const stateMeta = {
     language: 'zh',
@@ -11,7 +11,7 @@ const stateMeta = {
         primary: "#1890FF",
         isDark: false,
         isHappy: false,
-        menuType: menuTypeEnum.vertical,
+        menuType: MENU_TYPE_ENUM.VERTICAL,
         menuFlipColor: false,
         headerFlipColor: false,
     },
@@ -29,22 +29,22 @@ const configState: configStoreType = Object.assign({}, stateMeta)
 const configStore = (state: configStoreType = configState, action: AnyAction) =>
     produce(state, draftState => {
         switch (action.type) {
-            case types.SET_LANGUAGE:
+            case REDUX_CONFIG_ENUM.SET_LANGUAGE:
                 draftState.language = action.language;
                 break;
-            case types.SET_THEME:
+            case REDUX_CONFIG_ENUM.SET_THEME:
                 draftState.theme = action.theme;
                 break;
-            case types.SET_COLLAPSED:
+            case REDUX_CONFIG_ENUM.SET_COLLAPSED:
                 draftState.collapsed = action.collapsed;
                 break;
-            case types.SET_COMPONENT:
+            case REDUX_CONFIG_ENUM.SET_COMPONENT:
                 draftState.component = action.component;
                 break;
-            case types.SET_VIEW_FULL:
+            case REDUX_CONFIG_ENUM.SET_VIEW_FULL:
                 draftState.isViewFull = action.isViewFull;
                 break;
-            case types.RESET_CONFIG:
+            case REDUX_CONFIG_ENUM.RESET_CONFIG:
                 draftState.language = stateMeta.language
                 draftState.theme = stateMeta.theme
                 draftState.collapsed = stateMeta.collapsed

@@ -2,6 +2,7 @@ import { store } from '@/redux/index'
 import { Tooltip, Switch  } from 'antd'
 import type { configStoreType } from '@/redux/interface/index'
 import { useTranslation } from "react-i18next";
+import { REDUX_CONFIG_ENUM } from '@/enums/redux';
 
 const PageSet = (props:{
     configStore:configStoreType
@@ -18,7 +19,7 @@ const PageSet = (props:{
             <Switch
                 checked={ collapsed }
                 onChange={()=>store.dispatch({
-                    type:'SET_COLLAPSED',
+                    type:REDUX_CONFIG_ENUM.SET_COLLAPSED,
                     collapsed:!collapsed
                 })}
             />

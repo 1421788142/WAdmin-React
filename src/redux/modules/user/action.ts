@@ -1,36 +1,36 @@
-import * as types from "@/redux/actionTypes";
+import { REDUX_USER_ENUM } from '@/enums/redux'
 import { userStoreType } from '@/redux/interface/index'
 
 export const updateUserInfo = (userInfo: userStoreType['userInfo']) => ({
-    type: types.UPDATE_USER_INFO,
+    type: REDUX_USER_ENUM.UPDATE_USER_INFO,
     userInfo
 })
 
 export const setToken = (token: userStoreType['token']) => ({
-    type: types.SET_TOKEN,
+    type: REDUX_USER_ENUM.SET_TOKEN,
     token
 })
 
 export const setVerifyCode = (verifyCode: userStoreType['verifyCode']) => ({
-    type: types.SET_VERIFY_CODE,
+    type: REDUX_USER_ENUM.SET_VERIFY_CODE,
     verifyCode
 })
 
 export const setCurrentPage = (currentPage: userStoreType['currentPage']) => ({
-    type: types.SET_CURRENT_PAGE,
+    type: REDUX_USER_ENUM.SET_CURRENT_PAGE,
     currentPage
 })
 
 export const setupRequestRecord = (record: userStoreType['requestRecord']) => ({
-    type: types.SET_REQUEST_RECORD,
+    type: REDUX_USER_ENUM.SET_REQUEST_RECORD,
     record
 })
 
 export const setupUserRouter = (routerList: userStoreType['userRouterList']) => ({
-    type: types.SET_USER_ROUTER,
+    type: REDUX_USER_ENUM.SET_USER_ROUTER,
     routerList
 })
 
 export const loginOut = () => ({
-    type: types.LOGIN_OUT
+    type: REDUX_USER_ENUM.LOGIN_OUT
 })

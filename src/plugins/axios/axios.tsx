@@ -6,6 +6,7 @@ import { checkStatus } from "./checkStatus";
 import { store } from "@/redux";
 import i18n from "i18next";
 import { ArgsProps } from "antd/es/message";
+import { REDUX_USER_ENUM } from "@/enums/redux";
 
 const { t } = i18n
 export default class VAxios {
@@ -102,7 +103,7 @@ export default class VAxios {
                 // 删除当前请求
                 this.reqList.splice(i, 1)
                 store.dispatch({
-                    type: 'SET_REQUEST_RECORD',
+                    type: REDUX_USER_ENUM.SET_REQUEST_RECORD,
                     record: {
                         cancel: null,
                         url,
@@ -129,7 +130,7 @@ export default class VAxios {
                     cancel = c
                     //将请求记录存起来
                     store.dispatch({
-                        type: 'SET_REQUEST_RECORD',
+                        type: REDUX_USER_ENUM.SET_REQUEST_RECORD,
                         record: {
                             cancel,
                             url: config.url,

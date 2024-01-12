@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useTag } from './util';
 import TagMenu from './tagMenu';
 import RefreshView from "../refreshView"
+import { REDUX_CONFIG_ENUM } from "@/enums/redux"
 
 const OperateMenu:React.FC<{
     tagList: StoreType['historyTagStore']['historyTag'],
@@ -29,7 +30,7 @@ const OperateMenu:React.FC<{
 
     const setViewFull = ()=>{
         store.dispatch({
-            type:'SET_VIEW_FULL',
+            type:REDUX_CONFIG_ENUM.SET_VIEW_FULL,
             isViewFull:!store.getState().configStore.isViewFull
         })
     }

@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import produce from "immer";
 import type { userStoreType } from '@/redux/interface/index'
-import * as types from "@/redux/actionTypes";
+import { REDUX_USER_ENUM } from '@/enums/redux'
 
 const userState: userStoreType = {
     token: '', //项目暂时没有启用token模式 可以按需使用
@@ -16,19 +16,19 @@ const userState: userStoreType = {
 const userStore = (state: userStoreType = userState, action: AnyAction) =>
     produce(state, draftState => {
         switch (action.type) {
-            case types.UPDATE_USER_INFO:
+            case REDUX_USER_ENUM.UPDATE_USER_INFO:
                 draftState.userInfo = action.userInfo;
                 break;
-            case types.SET_TOKEN:
+            case REDUX_USER_ENUM.SET_TOKEN:
                 draftState.token = action.token;
                 break;
-            case types.SET_VERIFY_CODE:
+            case REDUX_USER_ENUM.SET_VERIFY_CODE:
                 draftState.verifyCode = action.verifyCode;
                 break;
-            case types.SET_CURRENT_PAGE:
+            case REDUX_USER_ENUM.SET_CURRENT_PAGE:
                 draftState.currentPage = action.currentPage;
                 break;
-            case types.SET_REQUEST_RECORD:
+            case REDUX_USER_ENUM.SET_REQUEST_RECORD:
                 // 缓存请求记录
                 const { type, url, cancel } = action.record
                 if (type === 'add') {
@@ -43,10 +43,10 @@ const userStore = (state: userStoreType = userState, action: AnyAction) =>
                     draftState.requestRecord = draftState.requestRecord.filter(x => x.url !== url)
                 }
                 break;
-            case types.SET_USER_ROUTER:
+            case REDUX_USER_ENUM.SET_USER_ROUTER:
                 draftState.userRouterList = action.routerList;
                 break;
-            case types.LOGIN_OUT:
+            case REDUX_USER_ENUM.LOGIN_OUT:
                 draftState.token = '';
                 draftState.userInfo = null;
                 break;

@@ -5,6 +5,7 @@ import { App } from 'antd'
 import { useNavigate } from 'react-router-dom';
 import config from '../../../../public/config'
 import _ from 'loadsh'
+import { REDUX_TAG_ENUM } from '@/enums/redux';
 
 export const useTag = ({
     tagList,
@@ -20,7 +21,7 @@ export const useTag = ({
 
     const setStoreTag = (lsit: historyTagStoreType['historyTag']) => {
         store.dispatch({
-            type: 'SET_TAG',
+            type: REDUX_TAG_ENUM.SET_TAG,
             historyTag: lsit
         })
     }

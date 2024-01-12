@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { StoreType  } from '@/redux/interface/index'
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux"
+import { REDUX_USER_ENUM } from "@/enums/redux"
 
 const UserContainer:React.FC<{userInfo:StoreType['userStore']['userInfo']}> = (props) => {
     const navigate = useNavigate()
@@ -23,10 +24,10 @@ const UserContainer:React.FC<{userInfo:StoreType['userStore']['userInfo']}> = (p
             title: t("login.userOutTitle"),
             content: t("login.userOutDesc"),
             onOk() {
-                store.dispatch({ type:'LOGIN_OUT' })
+                store.dispatch({ type:REDUX_USER_ENUM.LOGIN_OUT })
                 setTimeout(()=>{
                     store.dispatch({
-                        type:'SET_USER_ROUTER',
+                        type:REDUX_USER_ENUM.SET_USER_ROUTER,
                         routerList:[]
                     })
                 },200)

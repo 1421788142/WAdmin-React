@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import type { configStoreType } from '@/redux/interface/index'
 import { store } from '@/redux'
 import { useNavigate } from 'react-router-dom'
+import { REDUX_CONFIG_ENUM, REDUX_USER_ENUM } from '@/enums/redux'
 
 const SettingCon = (props?:configStoreType)=>{
     const { t } = useTranslation();
@@ -20,15 +21,15 @@ const SettingCon = (props?:configStoreType)=>{
         try {
             app.message.loading('重置中...')
             store.dispatch({
-                type:'RESET_CONFIG'
+                type:REDUX_CONFIG_ENUM.RESET_CONFIG
             })
         } finally {
             setTimeout(()=>{
                 if(hasLogin){
-                    store.dispatch({ type:'LOGIN_OUT' })
+                    store.dispatch({ type:REDUX_USER_ENUM.LOGIN_OUT })
                     setTimeout(()=>{
                         store.dispatch({
-                            type:'SET_USER_ROUTER',
+                            type:REDUX_USER_ENUM.SET_USER_ROUTER,
                             routerList:[]
                         })
                     },200)

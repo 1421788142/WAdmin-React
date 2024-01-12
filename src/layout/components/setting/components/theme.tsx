@@ -4,6 +4,7 @@ import { store } from '@/redux/index'
 import { memo } from 'react'
 import { connect } from 'react-redux'
 import { StoreType, configStoreType } from '@/redux/interface'
+import { REDUX_CONFIG_ENUM } from '@/enums/redux'
 
 const Theme:React.FC<{
     theme:configStoreType['theme']
@@ -12,7 +13,7 @@ const Theme:React.FC<{
 
     const chnageDark = (val:boolean)=>{
         store.dispatch({
-            type:'SET_THEME',
+            type:REDUX_CONFIG_ENUM.SET_THEME,
             theme:{
                 ...theme,
                 isDark:val

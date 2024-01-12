@@ -3,6 +3,7 @@ import { SyncOutlined } from "@ant-design/icons"
 import React, { useMemo } from "react"
 import { connect } from "react-redux"
 import { store } from "@/redux"
+import { REDUX_TAG_ENUM } from "@/enums/redux"
 
 const RefreshView:React.FC<{
     children:React.ReactNode,
@@ -15,7 +16,7 @@ const RefreshView:React.FC<{
         if(viewStatus === 'loading'){
             setTimeout(()=>{
                 store.dispatch({
-                    type:'SET_VIEW_STATUS',
+                    type:REDUX_TAG_ENUM.SET_VIEW_STATUS,
                     viewStatus:'ok'
                 })
             },200)
@@ -25,7 +26,7 @@ const RefreshView:React.FC<{
 
     const refres = ()=>{
         store.dispatch({
-            type:'SET_VIEW_STATUS',
+            type:REDUX_TAG_ENUM.SET_VIEW_STATUS,
             viewStatus:'loading'
         })
     }

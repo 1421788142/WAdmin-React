@@ -1,7 +1,7 @@
 import { Http } from "@/plugins/axios";
 import { tableResultData, tableParamsType } from '@/apis/interface'
 import { AxiosProgressEvent } from "axios";
-import { ContentTypeEnum } from "@/enums/httpEnum";
+import { CONTENT_TYPE_ENUM } from "@/enums/httpEnum";
 
 //图片返回
 export interface fileResType {
@@ -31,7 +31,7 @@ export const uploadImg = (data: FormData, onUploadProgress: (value: AxiosProgres
         // 显示进度条
         onUploadProgress,
         headers: {
-            'Content-Type': ContentTypeEnum.FORM_URLENCODED
+            'Content-Type': CONTENT_TYPE_ENUM.FORM_URLENCODED
         }
     }, { preventDuplication: true })
 }

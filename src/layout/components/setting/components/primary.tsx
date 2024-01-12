@@ -5,6 +5,7 @@ import { memo, useMemo } from 'react'
 import { store } from '@/redux/index'
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { useTranslation } from "react-i18next";
+import { REDUX_CONFIG_ENUM } from '@/enums/redux'
 
 const colors = [
     "#009688",
@@ -30,7 +31,7 @@ const SetPrimary = (props:{
     // 修改主题颜色
     const changeColor = (value:string)=>{
         store.dispatch({
-            type:'SET_THEME',
+            type:REDUX_CONFIG_ENUM.SET_THEME,
             theme:{
                 ...props.theme,
                 primary:value.toUpperCase()
@@ -40,7 +41,7 @@ const SetPrimary = (props:{
 
     const changeMode = ( data: Partial<configStoreType['theme']>)=>{
         store.dispatch({
-            type:'SET_THEME',
+            type:REDUX_CONFIG_ENUM.SET_THEME,
             theme:{
                 ...store.getState().configStore.theme,
                 ...data

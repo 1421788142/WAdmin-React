@@ -3,6 +3,7 @@ import type { configStoreType } from '@/redux/interface/index'
 import type { RadioChangeEvent } from 'antd/es/radio/interface'
 import { memo, useMemo } from 'react'
 import { store } from '@/redux/index'
+import { REDUX_CONFIG_ENUM } from '@/enums/redux'
 const SetPrimary = (props:{
     component:configStoreType['component']
 })=>{
@@ -11,7 +12,7 @@ const SetPrimary = (props:{
         return <InputNumber 
             min={1} max={20}  
             onChange={val=>store.dispatch({
-                type:'SET_COMPONENT',
+                type:REDUX_CONFIG_ENUM.SET_COMPONENT,
                 component:{
                         ...store.getState().configStore.component,
                         borderRadius:val
@@ -27,7 +28,7 @@ const SetPrimary = (props:{
         return <InputNumber 
             min={100} step={10} max={400}  
             onChange={val=>store.dispatch({
-                type:'SET_COMPONENT',
+                type:REDUX_CONFIG_ENUM.SET_COMPONENT,
                 component:{
                         ...store.getState().configStore.component,
                         sidebarWidth:val
@@ -49,7 +50,7 @@ const SetPrimary = (props:{
                 ]}
                 value={props.component.size}
                 onChange={(val:RadioChangeEvent)=>store.dispatch({
-                    type:'SET_COMPONENT',
+                    type:REDUX_CONFIG_ENUM.SET_COMPONENT,
                     component:{
                         ...store.getState().configStore.component,
                         size:val.target.value

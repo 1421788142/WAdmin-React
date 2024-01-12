@@ -1,31 +1,31 @@
-import * as types from "@/redux/actionTypes";
+import { REDUX_CONFIG_ENUM } from '@/enums/redux'
 import { configStoreType } from '@/redux/interface/index'
 
 export const setLanguage = (language: configStoreType['language']) => ({
-    type: types.SET_LANGUAGE,
+    type: REDUX_CONFIG_ENUM.SET_LANGUAGE,
     language
 })
 
 export const setTheme = (theme: configStoreType['theme']) => ({
-    type: types.SET_THEME,
+    type: REDUX_CONFIG_ENUM.SET_THEME,
     theme
 })
 
 export const setComponent = (component: configStoreType['component']) => ({
-    type: types.SET_COMPONENT,
+    type: REDUX_CONFIG_ENUM.SET_COMPONENT,
     component
 })
 
 export const setCollapsed = (collapsed: configStoreType['collapsed']) => ({
-    type: types.SET_COLLAPSED,
+    type: REDUX_CONFIG_ENUM.SET_COLLAPSED,
     collapsed
 })
 
 export const setViewFull = (isViewFull: configStoreType['isViewFull']) => ({
-    type: types.SET_VIEW_FULL,
+    type: REDUX_CONFIG_ENUM.SET_VIEW_FULL,
     isViewFull
 })
 
 export const resetConfig = () => ({
-    type: types.RESET_CONFIG
+    type: REDUX_CONFIG_ENUM.RESET_CONFIG
 })

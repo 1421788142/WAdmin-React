@@ -1,6 +1,7 @@
 import { Modal } from 'antd';
 import { store } from "@/redux";
 import i18n from "i18next";
+import { REDUX_USER_ENUM } from '@/enums/redux';
 const { t } = i18n
 export const checkStatus = (
     status: number,
@@ -18,10 +19,10 @@ export const checkStatus = (
                 content: t('login.userExpiresDesc'),
                 className: 'custom-axios-modal',
                 onOk: async () => {
-                    store.dispatch({ type:'LOGIN_OUT' })
+                    store.dispatch({ type:REDUX_USER_ENUM.LOGIN_OUT })
                     setTimeout(()=>{
                         store.dispatch({
-                            type:'SET_USER_ROUTER',
+                            type:REDUX_USER_ENUM.SET_USER_ROUTER,
                             routerList:[]
                         })
                     },200)

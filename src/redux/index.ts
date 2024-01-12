@@ -8,7 +8,7 @@ import configStore from "./modules/config/reducer";
 import userStore from "./modules/user/reducer";
 import historyTagStore from "./modules/historyTag/reducer";
 import { StoreType } from '@/redux/interface/index'
-import * as types from './actionTypes'
+import { REDUX_KEYS } from './interface/index'
 
 // 创建reducer(拆分reducer)
 const reducer = combineReducers({
@@ -32,7 +32,7 @@ const middleWares = applyMiddleware(reduxThunk, reduxPromise);
 
 // 创建 store 持久存储
 const store: Store<StoreType, {
-    type: keyof typeof types
+    type: REDUX_KEYS
     [data: string]: any
 }> = createStore(persistReducerConfig, composeEnhancers(middleWares));
 

@@ -4,6 +4,7 @@ import { start, close } from '@/plugins/nprogress'
 import { store } from "@/redux";
 import config from "../../../public/config";
 import { getCurrentRouter } from "@/utils/currentRouter"
+import { REDUX_USER_ENUM } from "@/enums/redux";
 
 // 是否需要登录
 const isLogin = (pathName:string,token:string | null)=>{
@@ -43,7 +44,7 @@ const AuthRouter = (props: { children: JSX.Element }) => {
 
     //跳转前清空所有正在请求的接口
     store.dispatch({
-        type: 'SET_REQUEST_RECORD',
+        type: REDUX_USER_ENUM.SET_REQUEST_RECORD,
         record: {
             cancel: null,
             url:null,

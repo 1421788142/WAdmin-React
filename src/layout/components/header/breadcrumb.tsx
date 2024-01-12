@@ -7,6 +7,7 @@ import { StoreType, configStoreType } from '@/redux/interface/index'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import { store } from '@/redux'
 import { connect } from 'react-redux';
+import { REDUX_CONFIG_ENUM } from '@/enums/redux';
 
 type ThemeType = configStoreType['theme']
 
@@ -50,7 +51,7 @@ const BreadcrumbCon:React.FC<Partial<{
             >
                 <div className='flex items-center'>
                     <div className='mx-2 text-xl cursor-pointer' onClick={()=>store.dispatch({
-                        type:'SET_COLLAPSED',
+                        type:REDUX_CONFIG_ENUM.SET_COLLAPSED,
                         collapsed:!collapsed
                     })}>
                         { collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined /> }

@@ -1,8 +1,10 @@
 import { userInterface } from '@api/user/index'
 import type { SizeType } from "antd/lib/config-provider/SizeContext";
-
+import { REDUX_USER_ENUM, REDUX_CONFIG_ENUM, REDUX_TAG_ENUM } from '@/enums/redux'
+import { MENU_TYPE_ENUM } from '@/enums/sys'
 export type pageType = 1 | 2 | 3 | 4 | 5
 export type menuType = 'vertical' | 'classic' | 'transverse' | 'columns'
+export type REDUX_KEYS = keyof typeof REDUX_USER_ENUM | keyof typeof REDUX_CONFIG_ENUM | keyof typeof REDUX_TAG_ENUM
 
 // userStore
 export type userStoreType = {

@@ -1,11 +1,11 @@
 import VAxios from "./axios";
-import { ResultEnum, ContentTypeEnum } from "@/enums/httpEnum";
+import { RESULT_ENUM, CONTENT_TYPE_ENUM } from "@/enums/httpEnum";
 export const baseURL = import.meta.env.VITE_API_URL as string
 const Http = new VAxios({
     baseURL: baseURL,
-    timeout: ResultEnum.TIMEOUT as number,
+    timeout: RESULT_ENUM.TIMEOUT as number,
     headers: {
-        'Content-Type': ContentTypeEnum.JSON
+        'Content-Type': CONTENT_TYPE_ENUM.JSON
     }
 })
 export { Http }

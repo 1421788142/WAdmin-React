@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom'
 import { timeState } from '@/utils/index'
 import { store } from '@/redux';
+import { REDUX_USER_ENUM } from '@/enums/redux';
 
 const LoginForm:React.FC = () => {
   const [form] = Form.useForm();
@@ -49,7 +50,7 @@ const LoginForm:React.FC = () => {
 
   const setCurrentPage = (currentPage:userStoreType['currentPage'])=>{
     store.dispatch({
-      type:'SET_CURRENT_PAGE',
+      type:REDUX_USER_ENUM.SET_CURRENT_PAGE,
       currentPage
     })
   }

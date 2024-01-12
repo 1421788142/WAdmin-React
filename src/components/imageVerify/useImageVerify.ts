@@ -1,6 +1,7 @@
 import { preload } from '@u/index'
 import { useState } from 'react';
 import { store } from '@/redux/index'
+import { REDUX_USER_ENUM } from '@/enums/redux';
 
 
 /**
@@ -17,7 +18,7 @@ export const useImageVerify = (width = 120, height = 40) => {
         // // 如果需要后台获取验证码替换下面函数即可
         let code = await draw(domRef, width, height);
         store.dispatch({
-            type: 'SET_VERIFY_CODE',
+            type: REDUX_USER_ENUM.SET_VERIFY_CODE,
             verifyCode: code
         })
         setImgCode(code)

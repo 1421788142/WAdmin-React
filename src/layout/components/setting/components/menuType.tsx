@@ -1,10 +1,11 @@
 import { store } from '@/redux/index'
 import { memo } from 'react'
 import { useTranslation } from "react-i18next";
-import { menuTypeEnum } from '@/enums/sys'
+import { MENU_TYPE_ENUM } from '@/enums/sys'
 import { CheckCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Tooltip, Switch  } from 'antd'
 import type { configStoreType } from '@/redux/interface/index'
+import { REDUX_CONFIG_ENUM } from '@/enums/redux';
 
 interface menuTypeInterface {
     title: string;
@@ -18,15 +19,15 @@ const MenuType = (props:{
     const { t } = useTranslation();
     // 菜单类型
     const menuTypeList:menuTypeInterface[] = [
-        { title: t("layouts.menuType1"), mode: menuTypeEnum.vertical },
-        { title: t("layouts.menuType2"), mode: menuTypeEnum.classic },
-        { title: t("layouts.menuType3"), mode: menuTypeEnum.transverse },
-        { title: t("layouts.menuType4"), mode: menuTypeEnum.columns },
+        { title: t("layouts.menuType1"), mode: MENU_TYPE_ENUM.VERTICAL },
+        { title: t("layouts.menuType2"), mode: MENU_TYPE_ENUM.CLASSIC },
+        { title: t("layouts.menuType3"), mode: MENU_TYPE_ENUM.TRANSVERSE },
+        { title: t("layouts.menuType4"), mode: MENU_TYPE_ENUM.COLUMNS },
     ]
     
     const chnageConfigType = (value:configStoreType['theme'])=>{
         store.dispatch({
-            type:'SET_THEME',
+            type:REDUX_CONFIG_ENUM.SET_THEME,
             theme:value
         })
     }

@@ -7,6 +7,7 @@ import { userStoreType, configStoreType, historyTagStoreType } from "@/redux/int
 import { CSSTransition, TransitionGroup} from 'react-transition-group'
 import './index.less'
 import { Spin } from "antd";
+import { REDUX_CONFIG_ENUM } from "@/enums/redux";
 
 const Main:React.FC<{
     token:userStoreType['token']
@@ -44,7 +45,7 @@ const Main:React.FC<{
     const CloseFull = useMemo(()=>{
         const setViewFull = ()=>{
             store.dispatch({
-                type:'SET_VIEW_FULL',
+                type:REDUX_CONFIG_ENUM.SET_VIEW_FULL,
                 isViewFull:!isViewFull
             })
         }

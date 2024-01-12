@@ -1,4 +1,5 @@
 import { login, loginInterface, getRouter, userInfo } from '@/apis/user/index'
+import { REDUX_USER_ENUM } from '@/enums/redux';
 import { store } from '@/redux';
 import { arrayToTree, arrRemoval } from '@/utils/index'
 
@@ -8,13 +9,13 @@ export const Login = async (query: loginInterface): Promise<{ status:number }> =
         const { code, data } = await login(query)
         if (code === 200) {
             store.dispatch({
-                type: 'SET_TOKEN',
+                type: REDUX_USER_ENUM.SET_TOKEN,
                 token: data.access_token
             })
             const { data:userDetail, code:userInfoCode } =  await userInfo()
             if(userInfoCode !== 200) return { status: code }
             store.dispatch({
-                type: 'UPDATE_USER_INFO',
+                type: REDUX_USER_ENUM.UPDATE_USER_INFO,
                 userInfo: userDetail
             })
             return await getUserRouter()
@@ -36,7 +37,7 @@ const getUserRouter = async ():Promise<{ status:number }> => {
         let menuTree = arrayToTree(dataList)
         await setMenuTree(menuTree)
         store.dispatch({
-            type: 'SET_USER_ROUTER',
+            type: REDUX_USER_ENUM.SET_USER_ROUTER,
             routerList: menuTree
         })
         return { status: code }

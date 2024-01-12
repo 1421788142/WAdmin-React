@@ -1,7 +1,7 @@
 /**
  * @description：请求配置
  */
-export enum ResultEnum {
+export enum RESULT_ENUM {
   SUCCESS = 200,
   ERROR = 500,
   OVERDUE = 599,
@@ -11,7 +11,7 @@ export enum ResultEnum {
 /**
  * @description: request method
  */
-export enum RequestEnum {
+export enum REQUESY_ENUM {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
@@ -21,7 +21,7 @@ export enum RequestEnum {
 /**
  * @description:  contentTyp
  */
-export enum ContentTypeEnum {
+export enum CONTENT_TYPE_ENUM {
   // json
   JSON = 'application/json; charset=utf-8',
   // form-data qs
