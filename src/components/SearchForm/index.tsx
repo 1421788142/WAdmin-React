@@ -17,7 +17,7 @@ import { useAutoFormRow } from "@/hooks/useAutoFormRow";
 import { AutoLoadCom } from "@/components/Form/utils";
 import { SearchFormProps } from './type'
 
-const WSerchForm = <T extends object, K extends keyof T = keyof T>(
+const WSearchForm = <T extends object, K extends keyof T = keyof T>(
     props:SearchFormProps<T,K>
 )=>{
     const {
@@ -132,4 +132,4 @@ const WSerchForm = <T extends object, K extends keyof T = keyof T>(
     </div>
 }
 
-export default WSerchForm
+export default WSearchForm

@@ -13,7 +13,7 @@ import { Rule } from 'antd/es/form';
 import { useElementSize } from 'usehooks-ts'
 import { WFormType } from './type'
 
-const WSerchForm = <T extends object = any, K extends keyof T = keyof T>(
+const WForm = <T extends object = any, K extends keyof T = keyof T>(
     props:WFormType.PropType<T,K>
 )=>{
     const {
@@ -114,4 +114,4 @@ const WSerchForm = <T extends object = any, K extends keyof T = keyof T>(
     </div>
 }
 
-export default WSerchForm
+export default WForm

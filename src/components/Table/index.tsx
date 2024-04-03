@@ -2,7 +2,7 @@ import { Api } from "@/hooks/types/api";
 import { TableContextType, TablePropsType, RecordType } from './types/type'
 import { createContext, useImperativeHandle, useMemo, useState, useContext, useEffect } from "react";
 import { setSearhFormColumns } from './utils';
-import WSerchForm from '@/components/SearchForm/index'
+import WSearchForm from '@/components/SearchForm/index'
 import React from "react";
 import TabelHead from './components/header'
 import { t } from "i18next";
@@ -62,13 +62,13 @@ const SearchFormRender = <T extends Api, O extends RecordType<T>>(props:{
 
     return <>
         <div className={[(show ? 'block' : 'hidden')].join(' ')}>
-            <WSerchForm
+            <WSearchForm
                 loading={loading}
                 columns={searchCol}
                 initSearchParam={initParams}
                 SearchBtnRender={SearchBtnRender}
                 BtnRender={BtnRender}
-            ></WSerchForm>
+            ></WSearchForm>
         </div>
     </>
 }
