@@ -100,7 +100,7 @@ const WSearchForm = <T extends object, K extends keyof T = keyof T>(
     ])
 
     const FormBtnsRender = useMemo(()=>{
-        return <div className="flex items-center ml-5">
+        return <div className={['flex items-center ml-5',(!searchColumns.length && 'mb-4')].join(' ')}>
             { SearchBtnRender && <SearchBtnRender/>}
             { BtnRender ? <BtnRender form={form} loading={loading} /> : <>
                 <Button type="primary"
