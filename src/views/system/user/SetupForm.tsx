@@ -3,7 +3,7 @@ import { FormProps, WFormType } from "@/components/Form/type"
 import { useAppProps } from "antd/es/app/context"
 import { useImperativeHandle, useMemo, useState } from "react"
 import SelectRole from './Select'
-import { exp_pwd } from "@/views/auth/utils/rules"
+import { exp_pwd } from "@/utils/rules"
 import React from "react"
 import WModal from "@/components/Modal"
 import { Button } from "antd"

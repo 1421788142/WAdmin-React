@@ -2,6 +2,7 @@ import { login, loginInterface, getRouter, userInfo } from '@/apis/user/index'
 import { REDUX_USER_ENUM } from '@/enums/redux';
 import { store } from '@/redux';
 import { arrayToTree, arrRemoval } from '@/utils/index'
+import menus from '@/assets/js/menu';
 
 
 export const Login = async (query: loginInterface): Promise<{ status:number }> => {

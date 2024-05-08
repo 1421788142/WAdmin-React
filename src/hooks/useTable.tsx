@@ -80,10 +80,10 @@ export const useTable = <
             // 重置查询错误次数
             setErrorReset(0)
 			// 解构后台返回的分页数据(如果有分页更新分页信息)
-			const { total = 0 } = data;
+			const { total = 0, pageNum, pageSize } = data;
 
             setDataSource(handleList)
-            setPageable((value)=>({...value,total}))
+            setPageable((value)=>({...value,total,pageNum,pageSize}))
 		} catch (error) {
 			// 失败重启查询一次  bug:前一次请求和当前请求一样则会情况当前请求,所以导致拿不到数据  所以这里定义一下重启
             setErrorReset((value)=>value+1)
