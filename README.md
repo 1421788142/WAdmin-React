@@ -68,6 +68,9 @@ yarn build
 
 
 ### 七、项目后台接口
-> 项目后台接口完全采用Mock 数据，感谢下面Mock平台支持
+> 后台接口使用的我另外一个开源项目 nestjs
 
-- FastMock： https://www.fastmock.site/
+```
+# GitHub
+git clone https://github.com/1421788142/nestjs_blog.git
+```
