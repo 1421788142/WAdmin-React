@@ -16,6 +16,7 @@ const CloudUpload = ()=>{
         fileSize,
         options,
         cloudFile,
+        antdApp,
         loading,
         setCloudFile,
         customRequest,
@@ -80,7 +81,8 @@ const CloudUpload = ()=>{
                             let res = await deleteImage(record.uid)
                             if(res.code === 200){
                                 delFn(record.uid)
-                            }
+                            } else {
+                                antdApp.message.error('删除失败')}
                         } else {
                             delFn(record.uid)
                         }

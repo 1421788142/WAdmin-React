@@ -30,6 +30,8 @@ const UploadOk = () => {
               let newBaseFile = baseFile.filter(f=>f.uid !== record.uid)
               onChange(newBaseFile.map(m=>m.uid).join(','))
               setBaseFile(newBaseFile)
+            } else {
+              antdApp.message.error(res.message)
             }
             setLoading(false)
           }

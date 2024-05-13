@@ -104,9 +104,11 @@ const WUpload: React.FC<UploadPropsType> = (props) => {
         // 上传失败
         _setCloudFile({ ...item, status:'error' })
       }).then((res)=>{
-        const { data, code } = res as Result<fileResType>
+        const { data, code, message } = res as Result<fileResType>
         if(code === 200){
           _setCloudFile({ ...item, progress:100, newUid:data.fileId, status:'done' })
+        } else {
+          antdApp.message.error(message)
         }
       })
     }))

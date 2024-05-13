@@ -42,11 +42,13 @@ const Table:React.FC<{
                                       ...record,
                                       status:checked ? 1 : 0
                                   }
-                                  let { code } = await updateRole(params as setupRoleType)
+                                  let { code, message } = await updateRole(params as setupRoleType)
                                   if(code === 200){
                                       antdApp.message.success(`${title}成功`)
                                       TableRef.current?.reset()
-                                  }
+                                  } else {
+                                    antdApp.message.error(message)
+                                }
                               }
                           })
                       }}
@@ -88,10 +90,12 @@ const Table:React.FC<{
                             title:'删除提示',
                             content: `是否确定删除${record.roleName}?`,
                             onOk: async()=>{
-                                const { code } = await delRole(record.id)
+                                const { code, message } = await delRole(record.id)
                                 if(code === 200){
                                     antdApp.message.success('删除成功')
                                     TableRef.current?.reset()
+                                } else {
+                                    antdApp.message.error(message)
                                 }
                             }
                         })

@@ -215,11 +215,13 @@ const SetupForm:React.FC<{
                     ...valid
                 }
                 setLoading(true)
-                let { code } = ruleForm.id ? await updateMenu(query) : await addMenu(query)
+                let { code, message } = ruleForm.id ? await updateMenu(query) : await addMenu(query)
                 if(code === 200){
                     antdApp.message.success(`${title}成功`)
                     setOpen(()=>false)
                     TableRef.current.resetTabel()
+                } else {
+                    antdApp.message.error(message)
                 }
                 setLoading(false)
             }}>提交</Button>

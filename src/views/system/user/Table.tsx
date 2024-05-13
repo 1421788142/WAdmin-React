@@ -65,10 +65,12 @@ const Table:React.FC<{
                                     ...record,
                                     status:checked ? 1 : 0
                                 }
-                                let { code } = await updateUser(params as unknown as setupUserType)
+                                let { code, message } = await updateUser(params as unknown as setupUserType)
                                 if(code === 200){
                                     antdApp.message.success(`${title}成功`)
                                     TableRef.current?.reset()
+                                } else {
+                                    antdApp.message.error(message)
                                 }
                             }
                         })
@@ -111,10 +113,12 @@ const Table:React.FC<{
                             title:'删除提示',
                             content: `是否确定删除${record.nickName}?`,
                             onOk: async()=>{
-                                const { code } = await delUser(record.id)
+                                const { code, message } = await delUser(record.id)
                                 if(code === 200){
                                     antdApp.message.success('删除成功')
                                     TableRef.current?.reset()
+                                } else {
+                                    antdApp.message.error(message)
                                 }
                             }
                         })

@@ -72,10 +72,12 @@ const Table:React.FC<{
                             title:'删除提示',
                             content: `是否确定删除${record.title}?`,
                             onOk: async()=>{
-                                const { code } = await delMenu(record.id)
+                                const { code, message } = await delMenu(record.id)
                                 if(code === 200){
                                     antdApp.message.success('删除成功')
                                     TableRef.current?.reset()
+                                } else {
+                                    antdApp.message.error(message)
                                 }
                             }
                         })
