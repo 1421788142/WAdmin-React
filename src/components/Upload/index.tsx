@@ -54,14 +54,27 @@ const WUpload: React.FC<UploadPropsType> = (props) => {
 
   // 文件上传生成临时base64
   const handleChange: UploadProps['onChange'] = async ({ fileList }) =>{
-    const base64 = await getBase64(fileList[0].originFileObj as RcFile)
-    setCloudFile((oldValue)=>{
-      return [...oldValue,{
-        ...fileList[0],
-        url: base64,
-        status:'loading',
+    const newFiles = fileList.map(async (m)=>{
+      const base64 = await getBase64(m.originFileObj as RcFile)
+      return {
+        ...m,
+        url:base64,
+        status:'loading' as UploadContextType['cloudFile'][number]["status"],
         progress:0
-      }]
+      }
+    })
+
+    Promise.all(newFiles).then((newV)=>{
+      setCloudFile((oldValue)=>{
+        let uniqueArray = [...oldValue,...newV]
+        const idMap = new Map();
+        uniqueArray.forEach(item => {
+          if (!idMap.has(item.uid)) {
+            idMap.set(item.uid, item);
+          }
+        });
+        return Array.from(idMap.values())
+      })
     })
   }
 
@@ -108,6 +121,7 @@ const WUpload: React.FC<UploadPropsType> = (props) => {
         if(code === 200){
           _setCloudFile({ ...item, progress:100, newUid:data.fileId, status:'done' })
         } else {
+          _setCloudFile({ ...item, status:'error' })
           antdApp.message.error(message)
         }
       })
