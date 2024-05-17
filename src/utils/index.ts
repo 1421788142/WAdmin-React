@@ -21,14 +21,14 @@ export const pick = <T extends Record<string, any>, K extends keyof T>(
     keys: K[],
     clearNull: boolean = false
 ): Pick<T, K> => {
-    const newVlaue = typeof target === 'string' && target.startsWith('{') ? JSON.parse(target) : ({} as T)
+    const newValue = typeof target === 'string' && target.startsWith('{') ? JSON.parse(target) : ({} as T)
     if (!Array.isArray(keys)) keys = [keys]
     for (let key of new Set(keys)) {
         let value = target[key]
         if (!value && clearNull) continue
-        newVlaue[key] = value
+        newValue[key] = value
     }
-    return newVlaue
+    return newValue
 }
 
 
