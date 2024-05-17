@@ -17,7 +17,7 @@ const UploadAvatar:React.FC<{
     return <WUpload
         value={fileList}
         onChange={onChange}
-        total={1}
+        total={5}
         fileSize={5}
         datas={{
             fileType:'image',

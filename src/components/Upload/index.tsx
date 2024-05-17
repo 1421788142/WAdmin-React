@@ -9,6 +9,7 @@ import { deleteImage, fileResType, imageUpUrl, uploadImg } from '@/apis/common';
 import { App, Upload } from 'antd'
 import { t } from 'i18next';
 import { uploadSize, uploadRule, getBase64 } from './util'
+import { useLimitedRequest } from '@/utils';
 
 export const UploadContext = createContext<any>(null)
 const WUpload: React.FC<UploadPropsType> = (props) => {
@@ -102,20 +103,22 @@ const WUpload: React.FC<UploadPropsType> = (props) => {
   const customRequest = async ()=>{
     if(cloudFile.length > defaultProps.total) return warningMsg('messages.uploadMaxNum',{ num:defaultProps.total })
     setLoading(true)
-    await Promise.all(cloudFile.filter(x=>x.status !== 'done').map(async (item)=>{
+        // 批量上传
+    const tasks = cloudFile.filter(x=>x.status !== 'done').map(item=> async ()=>{
       const formData = new FormData()
       formData.append('file',item.originFileObj as RcFile)
       for(const key in defaultProps.datas){
         formData.append(key,defaultProps.datas[key])
       }
-      await uploadImg(formData,(e)=>{
+      return uploadImg(formData,(e)=>{
         // 进度条
         let progress = Math.round(e.loaded / (e.total || 1) * 100)
         // 监听上传进度
-        _setCloudFile({ ...item, progress, status: progress === 100 ? 'done' : 'uploading' })
+        _setCloudFile({ ...item, progress })
       }).catch(()=>{
         // 上传失败
         _setCloudFile({ ...item, status:'error' })
+        setLoading(false)
       }).then((res)=>{
         const { data, code, message } = res as Result<fileResType>
         if(code === 200){
@@ -124,8 +127,9 @@ const WUpload: React.FC<UploadPropsType> = (props) => {
           _setCloudFile({ ...item, status:'error' })
           antdApp.message.error(message)
         }
-      })
-    }))
+      }) as Promise<Result<fileResType>>
+    })
+    await useLimitedRequest(tasks,2)
     setLoading(false)
   }
 
