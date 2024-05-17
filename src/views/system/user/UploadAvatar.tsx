@@ -4,7 +4,7 @@ import React from 'react'
 
 const UploadAvatar:React.FC<{
     value:any,
-    onChange:(vlaue:any)=>void
+    onChange:(value:any)=>void
 }> = (props)=>{
     const { value, onChange } = props
     const [ fileList, setFileList ] = React.useState<Array<fileResType>>([])
