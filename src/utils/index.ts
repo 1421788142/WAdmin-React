@@ -261,3 +261,47 @@ export function debounce(fn: any, delay: number = 300) {
         timerId = setTimeout(() => fn(...args), delay)
     }
 }
+
+
+/**
+ * 请求并发
+ * @param {Array<()=>Promise<Result<any>>>} tasks 请求函数array 没有入参
+ * @param {number} max 并发最大请求数量
+ * @param {(result:Result<any>,i:number)=>void} callback
+ * @returns {Promise<Array<Result<any>>>}
+ */
+export const useLimitedRequest = (tasks: Array<() => Promise<Result<any>>>, max: number = 2, callback?: (v: Result<any>, i: number) => void) => {
+    const length = tasks.length;
+    const results: Array<any> = [];
+
+    let index = 0;// 请求的索引
+    let count = 0; // 已经完成的数量
+    return new Promise(resolve => {
+        // 发送请求
+        async function request() {
+            if (index >= length) return;
+            const i = index;
+
+            const task = tasks[index++]
+
+            try {
+                results[i] = await task();
+            } catch (err) {
+                results[i] = err;
+            } finally {
+                callback instanceof Function && callback(results[i], i);
+                if (++count >= length) {
+                    return resolve(results);
+                }
+                request();
+            }
+        }
+
+        const taskNun = Math.min(max, tasks.length);
+
+        //开启对应的分支
+        for (let i = 0; i < taskNun; i++) {
+            request();
+        }
+    });
+};
